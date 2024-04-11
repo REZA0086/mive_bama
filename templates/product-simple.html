@@ -1,0 +1,586 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <!--=====================================
+                META TAG PART START
+    =======================================-->
+    <!-- REQUIRE META -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- AUTHOR META -->
+    <meta name="author" content="mironcoder">
+    <meta name="email" content="mironcoder@gmail.com">
+    <meta name="profile" content="https://themeforest.net/user/mironcoder">
+
+    <!-- TEMPLATE META -->
+    <meta name="name" content="Greeny">
+    <meta name="title" content="Greeny - eCommerce HTML Template">
+    <meta name="keywords"
+          content="organic, food, shop, ecommerce, store, html, bootstrap, template, agriculture, vegetables, webshop, farm, grocery, natural, online store">
+    <!--=====================================
+                META-TAG PART END
+    =======================================-->
+
+    <!-- WEBPAGE TITLE -->
+    <title>Product Simple - Greeny</title>
+
+    <!--=====================================
+                CSS LINK PART START
+    =======================================-->
+    <!-- FAVICON -->
+    <link rel="icon" href="{{ media_url }}images/favicon.png">
+
+    <!-- FONTS -->
+    <link rel="stylesheet" href="{% static 'fonts/flaticon/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/icofont/icofont.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome/fontawesome.min.css' %}">
+
+    <!-- VENDOR -->
+    <link rel="stylesheet" href="{% static 'vendor/venobox/venobox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/slickslider/slick.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/niceselect/nice-select.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css' %}">
+
+    <!-- CUSTOM -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product-details.css' %}">
+    <!--=====================================
+                CSS LINK PART END
+    =======================================-->
+</head>
+<body>
+<div class="backdrop"></div>
+<a class="backtop fas fa-arrow-up" href="#"></a>
+
+<!--=====================================
+            HEADER TOP PART START
+=======================================-->
+<div class="header-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-5">
+                <div class="header-top-welcome">
+                    <p>به فروشگاه رویایی خودتان، خوش آمدید!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--=====================================
+            HEADER TOP PART END 
+=======================================-->
+
+
+<!--=====================================
+            HEADER PART START
+=======================================-->
+<header class="header-part">
+    <div class="container">
+        <div class="header-content">
+            <div class="header-media-group">
+                <button class="header-user"><img src="{{ media_url }}images/user.png" alt="user"></button>
+                <a href="{% url 'blog:index' %}"><img src="{{ media_url }}images/logo.png" alt="logo"></a>
+                <button class="header-src"><i class="fas fa-search"></i></button>
+            </div>
+            
+
+           
+        </div>
+    </div>
+</header>
+<!--=====================================
+            HEADER PART END
+=======================================-->
+
+
+<!--=====================================
+            NAVBAR PART START
+=======================================-->
+<nav class="navbar-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="navbar-content">
+                    <ul class="navbar-list">
+                        <li class="navbar-item dropdown">
+                            <a class="navbar-link dropdown-arrow" href="{% url 'blog:index' %}">خانه</a>
+                        </li>
+                        
+                       
+                       
+                        <li class="navbar-item dropdown">
+                            <a class="navbar-link dropdown-arrow" href="#">احراز هویت</a>
+                            <ul class="dropdown-position-list">
+                                <li><a href="{% url 'account:login' %}">لاگین</a></li>
+                                <li><a href="{% url 'account:register' %}">ثبت نام</a></li>
+                                <li><a href="{% url 'account:reset_password' %}">تغییر پسوورد</a></li>
+                            </ul>
+                        </li>
+     
+                    </ul>
+                    <div class="navbar-info-group">
+                        <div class="navbar-info">
+                            <i class="icofont-ui-touch-phone"></i>
+                            <p>
+                                {{ user.username }}
+                            </p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!--=====================================
+            NAVBAR PART END
+=======================================-->
+
+
+<!--=====================================
+        CATEGORY SIDEBAR PART START
+=======================================-->
+
+<!--=====================================
+        CATEGORY SIDEBAR PART END
+=======================================-->
+
+
+<!--=====================================
+          CART SIDEBAR PART START
+=======================================-->
+
+<!--=====================================
+            CART SIDEBAR PART END
+=======================================-->
+
+
+<!--=====================================
+          NAV SIDEBAR PART START
+=======================================-->
+
+<!--=====================================
+          NAV SIDEBAR PART END
+=======================================-->
+
+
+<!--=====================================
+            MOBILE-MENU PART START
+=======================================-->
+
+<!--=====================================
+            MOBILE-MENU PART END
+=======================================-->
+
+
+<!--=====================================
+            PRODUCT VIEW START
+=======================================-->
+
+<!--=====================================
+            PRODUCT VIEW END
+=======================================-->
+
+
+<!--=====================================
+            BANNER PART START
+=======================================-->
+<section class="single-banner inner-section">
+    <div class="container">
+        <h2>صفحه معرفی محصول بصورت ساده</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'blog:index' %}">خانه</a></li>
+            
+            <li class="breadcrumb-item active" aria-current="page">صفحه معرفی محصول بصورت ساده</li>
+        </ol>
+    </div>
+</section>
+<!--=====================================
+            BANNER PART END
+=======================================-->
+
+
+<!--=====================================
+        PRODUCT DETAILS PART START
+=======================================-->
+<section class="inner-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="details-gallery">
+                    <div class="details-label-group">
+                        <label class="details-label new">جدید</label>
+                        <label class="details-label off">-{{ product.discount }}%</label>
+                    </div>
+                    <ul class="details-preview">
+                        {#                                <li><img src="{{ media_url }}images/product/01.jpg" alt="product"></li>#}
+                        <li><img src="{{ product.image.url }}" alt="product"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="details-content">
+                    <h3 class="details-name"><a>{{ product.title }}</a></h3>
+                    
+                    {% if rate %}
+                    <div class="details-rating">
+                        <p>امتیاز محصول :  {{ rate.value }}</p>
+                    </div>
+                    {% endif %}
+                    <h3 class="details-price">
+                
+                        <span>{{ product.price }} ريال<small>/برای هر کیلو</small></span>
+                    </h3>
+                    <p class="details-desc">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
+                        طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای
+                        شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                    
+                    
+                    <div class="details-action-group">
+                        <a href="{% url 'blog:rate_product' product.id %}" class="btn">امتیاز دادن به محصول</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=====================================
+        PRODUCT DETAILS PART END
+=======================================-->
+
+
+<!--=====================================
+          PRODUCT TAB PART START
+=======================================-->
+<section class="inner-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="product-details-frame">
+                    <h3 class="frame-title">توضیحات</h3>
+                    <div class="tab-descrip">
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،
+                            چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی
+                            تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی
+                            در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم
+                            افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان
+                            فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و
+                            شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات
+                            پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+                    </div>
+                </div>
+
+                <div class="product-details-frame">
+                    <ul class="review-list">
+                        {% for comment in comments %}
+                            <li class="review-item">
+                                <div class="review-media">
+                                    <h5 class="review-meta">
+                                        <a >user:{{ comment.user }}</a>
+                                    </h5>
+                                </div>
+                                <p class="review-desc">{{ comment.description }}</p>
+                                <form class="review-reply" onsubmit="response_commentsubmit()">
+                                    {% csrf_token %}
+                                    <input type="text" id="comment_value">
+                                    <input type="hidden" id="comment_id" class="d-none" value="{{ comment.id }}">
+                                    <button onclick="response_comment()" type="button"><i class="icofont-reply"></i>پاسخ
+                                    </button>
+                                </form>
+                                
+                            </li>
+                            {% if response_comment.is_active  %}
+                            {% for response_comment in response_comments %}
+                            <li class="review-item">
+                            <h3>پاسخ :</h3>
+                                <div class="review-media">
+                                        <h5>Author : {{ response_comment.user }}</h5>  </div>
+                                        <h5>Comment : {{ response_comment.comment }}</h5>
+                                        <p>Text : {{ response_comment.response }}</p>
+                              
+                            </li>
+                                 {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+
+
+                    </ul>
+                </div>
+                <div class="product-details-frame">
+                    <h3 class="frame-title">نظر خود را اضافه کنید</h3>
+                    <form class="review-form" method="post" action="{% url 'blog:product-detail' product.id %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    {{ form_comment.description }}
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button class="btn btn-inline" type="submit">
+                                    <i class="icofont-water-drop"></i>
+                                    <span>ثبت نظر</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=====================================
+            PRODUCT TAB PART END
+=======================================-->
+
+
+<!--=====================================
+         PRODUCT RELATED PART START
+=======================================-->
+
+<!--=====================================
+         PRODUCT RELATED PART END
+=======================================-->
+
+
+<!--=====================================
+            NEWSLETTER PART START
+=======================================-->
+
+<!--=====================================
+            NEWSLETTER PART END
+=======================================-->
+
+
+<!--=====================================
+            INTRO PART START
+=======================================-->
+<section class="intro-part">
+    <div class="container">
+        <div class="row intro-content">
+            <div class="col-sm-6 col-lg-3">
+                <div class="intro-wrap">
+                    <div class="intro-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="intro-content">
+                        <h5>تحویل درب منزل رایگان</h5>
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="intro-wrap">
+                    <div class="intro-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="intro-content">
+                        <h5>مرجوعی کالا بی قید و شرط</h5>
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="intro-wrap">
+                    <div class="intro-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="intro-content">
+                        <h5>سیستم پشتیبانی سریع</h5>
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="intro-wrap">
+                    <div class="intro-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="intro-content">
+                        <h5>راه های پرداخت امن</h5>
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=====================================
+            INTRO PART END
+=======================================-->
+
+
+<!--=====================================
+             FOOTER PART START
+=======================================-->
+<footer class="footer-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-xl-3">
+                <div class="footer-widget">
+                    <a class="footer-logo" href="#">
+                        <img src="{{ media_url }}images/logo.png" alt="logo">
+                    </a>
+                    <p class="footer-desc">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
+                        طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                    <ul class="footer-social">
+                        <li><a class="icofont-facebook" href="#"></a></li>
+                        <li><a class="icofont-twitter" href="#"></a></li>
+                        <li><a class="icofont-linkedin" href="#"></a></li>
+                        <li><a class="icofont-instagram" href="#"></a></li>
+                        <li><a class="icofont-pinterest" href="#"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="footer-widget contact">
+                    <h3 class="footer-title">راه های ارتباط</h3>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="icofont-ui-email"></i>
+                            <p>
+                                <span>support@greeny.com</span>
+                                <span>carrer@greeny.com</span>
+                            </p>
+                        </li>
+                        <li>
+                            <i class="icofont-ui-touch-phone"></i>
+                            <p>
+                                <span>+120 279 532 13</span>
+                                <span>+120 279 532 14</span>
+                            </p>
+                        </li>
+                        <li>
+                            <i class="icofont-location-pin"></i>
+                            <p>ایران جان ، تهران</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="footer-widget">
+                    <h3 class="footer-title">دسترسی سریع</h3>
+                    <div class="footer-links">
+                        <ul>
+                            <li><a href="#">اکانت من</a></li>
+                            <li><a href="#">تاریخچه خرید</a></li>
+                            <li><a href="#">رهگیری سفارش</a></li>
+                            <li><a href="#">بهترین فروش</a></li>
+                            <li><a href="#">جدید ترین محصولات</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">لوکیشن</a></li>
+                            <li><a href="#">زیرمجموعه گیری</a></li>
+                            <li><a href="#">اترابط با ما</a></li>
+                            <li><a href="#">قوانین</a></li>
+                            <li><a href="#">سوالات متداول</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="footer-widget">
+                    <h3 class="footer-title">دانلود اپلیکیشن</h3>
+                    <p class="footer-desc">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
+                        طراحان گرافیک است!</p>
+                    <div class="footer-app">
+                        <a href="#"><img src="{{ media_url }}images/google-store.png" alt="google"></a>
+                        <a href="#"><img src="{{ media_url }}images/app-store.png" alt="app"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="footer-bottom">
+                    <p class="footer-copytext">&copy; تمامی حقوق این سایت متعلق به <a target="_blank"
+                                                                                      href="#">Elisoft</a></p>
+                    <div class="footer-card">
+                        <a href="#"><img src="{{ media_url }}images/payment/jpg/01.jpg" alt="payment"></a>
+                        <a href="#"><img src="{{ media_url }}images/payment/jpg/02.jpg" alt="payment"></a>
+                        <a href="#"><img src="{{ media_url }}images/payment/jpg/03.jpg" alt="payment"></a>
+                        <a href="#"><img src="{{ media_url }}images/payment/jpg/04.jpg" alt="payment"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--=====================================
+              FOOTER PART END
+=======================================-->
+
+
+<!--=====================================
+            JS LINK PART START
+=======================================-->
+<!-- VENDOR -->
+<script src="{% static 'vendor/bootstrap/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/bootstrap.min.js' %}"></script>
+<script src="{% static 'vendor/countdown/countdown.min.js' %}"></script>
+<script src="{% static 'vendor/niceselect/nice-select.min.js' %}"></script>
+<script src="{% static 'vendor/slickslider/slick.min.js' %}"></script>
+<script src="{% static 'vendor/venobox/venobox.min.js' %}"></script>
+
+<!-- CUSTOM -->
+<script src="{% static 'js/nice-select.js' %}"></script>
+<script src="{% static 'js/countdown.js' %}"></script>
+<script src="{% static 'js/accordion.js' %}"></script>
+<script src="{% static 'js/venobox.js' %}"></script>
+<script src="{% static 'js/slick.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script>
+    let comment_id = $("#comment_id");
+    let comment_value = $("#comment_value");
+
+    const response_commentsubmit = (event) => {
+        event.preventDefault();
+        response_comment();
+    }
+
+    function response_comment(event) {
+
+        var csrf = $('input[name="csrfmiddlewaretoken"]').val()
+
+
+        if (comment_id.val() > 0 && comment_value.val()) {
+            $.ajax({
+                url: "/response-comment/",
+                type: "post",
+                headers: {
+                    'X-CSRFToken': csrf,
+                },
+                dataType: "json",
+                data: {
+                    "comment_value": `${comment_value.val()}`,
+                    "comment_id": comment_id.val()
+                },
+                success: function (response) {
+                    if (response.success)
+                        window.location.reload()
+                    else {
+                        console.log(response)
+                    }
+                },
+                error: function (err) {
+                    console.error(err);
+                }
+            })
+        }
+
+    }
+</script>
+<!--=====================================
+            JS LINK PART END
+=======================================-->
+</body>
+</html>
+
+
+
+
+
+

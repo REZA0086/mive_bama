@@ -1,0 +1,1077 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<head>
+    <!-- REQUIRE META -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- TEMPLATE META -->
+    <meta name="name" content="Greeny">
+    <meta name="title" content="Greeny - eCommerce HTML Template">
+    <meta name="keywords"
+          content="organic, food, shop, ecommerce, store, html, bootstrap, template, agriculture, vegetables, webshop, farm, grocery, natural, online store">
+
+    <!-- WEBPAGE TITLE -->
+    <title>Index Home - Greeny</title>
+
+    <!-- FAVICON -->
+    <link rel="icon" href="{{ media_url }}images/favicon.png">
+
+    <!-- FONTS -->
+    <link rel="stylesheet" href="{% static 'fonts/flaticon/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/icofont/icofont.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome/fontawesome.min.css' %}">
+
+    <!-- VENDOR -->
+    <link rel="stylesheet" href="{% static 'vendor/venobox/venobox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/slickslider/slick.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/niceselect/nice-select.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css' %}">
+
+    <!-- CUSTOM -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <!--=====================================
+                    CSS LINK PART END
+        =======================================-->
+</head>
+
+<body>
+<div class="backdrop"></div>
+<a class="backtop fas fa-arrow-up" href="#"></a>
+
+<!--=====================================
+                HEADER TOP PART START
+    =======================================-->
+<div class="header-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-11">
+                <div class="header-top-welcome d-flex justify-content-between">
+                    <p class="text-center">
+                        {{ header_index.title }}
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--=====================================
+                HEADER TOP PART END 
+    =======================================-->
+
+
+<!--=====================================
+                HEADER PART START
+    =======================================-->
+<header class="header-part">
+    <div class="container">
+        <div class="header-content justify-content-between">
+            <div class="header-media-group">
+
+                <button class="header-user"><img src="{{ media_url }}images/user.png" alt="user"></button>
+
+                <a href="{% url 'account:login' %}"
+                   class="btn btn-outline-info rounded btn-sm py-1 px-3 d-flex align-items-center"
+                   title="ورود">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>ورود</span>
+                </a>
+                <a href="{% url 'account:login' %}"><img src="{{ media_url }}images/logo.png" alt="logo"></a>
+            </div>
+
+            <section class="d-flex">
+                <a href="{% url 'blog:index' %}" class="header-logo">
+                    <img src="{{ header_index.logo.url }}" alt="logo">
+                </a>
+                {% if user.is_authenticated %}
+                    <button class="header-user thow-header-user ms-4"><img src="{{ media_url }}images/user.png"
+                                                                           alt="user">
+                    </button>
+                {% else %}
+                    <a href="{% url 'account:login' %}"
+                       class="btn btn-outline-info btn-sm py-1 px-3 d-none d-lg-flex align-items-center" title="ورود">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>ورود</span>
+                    </a>
+                {% endif %}
+            </section>
+
+            <div class="header-widget-group">
+                <button class="header-widget header-cart" title="Cartlist">
+                    <i class="fas fa-shopping-basket"></i>
+                    <sup>{{ count_order }}</sup>
+                    <span>قیمت کل<small>{{ sum }} ريال</small></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+<!--=====================================
+                HEADER PART END
+    =======================================-->
+
+
+<!--=====================================
+                NAVBAR PART START
+    =======================================-->
+<nav class="navbar-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="navbar-content">
+                    <ul class="navbar-list">
+                        <li class="navbar-item dropdown">
+                            <a class="navbar-link dropdown-arrow" href="{% url 'blog:index' %}">خانه</a>
+                        </li>
+
+                        <li class="navbar-item dropdown">
+                            <a class="navbar-link dropdown-arrow" href="#">احراز هویت</a>
+                            <ul class="dropdown-position-list">
+                                <li><a href="{% url 'account:login' %}">لاگین</a></li>
+                                <li><a href="{% url 'account:register' %}">ثبت نام</a></li>
+                                <li><a href="{% url 'account:reset_password' %}">تغییر پسوورد</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    <div class="navbar-info-group">
+                        <div class="navbar-info">
+                            <i class="icofont-ui-touch-phone"></i>
+                            <p>
+                                {{ user.username }}
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!--=====================================
+                NAVBAR PART END
+    =======================================-->
+
+
+<!--=====================================
+            CATEGORY SIDEBAR PART START
+    =======================================-->
+
+<!--=====================================
+            CATEGORY SIDEBAR PART END
+    =======================================-->
+
+
+<!--=====================================
+              CART SIDEBAR PART START
+    =======================================-->
+<aside class="cart-sidebar">
+    <div class="cart-header">
+        <div class="cart-total">
+            <i class="fas fa-shopping-basket"></i>
+
+        </div>
+        <button class="cart-close"><i class="icofont-close"></i></button>
+    </div>
+    <ul class="cart-list">
+        {% for detail in order.orderdetail_set.all %}
+            <li class="cart-item div{{ detail.product.id }}">
+                <div class="cart-media">
+                    <a href="#"><img src="{{ detail.product.image.url }}" alt="product"></a>
+                    <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
+                </div>
+                <div class="cart-info-group">
+                    <div class="cart-info">
+                        <h6>{{ detail.product.title }}</h6>
+                        <p>قیمت واحد {{ detail.product.price }} ریال</p>
+                    </div>
+                    <div class="cart-action-group">
+                        <div class="product-action">
+                            <button class="action-minus" title="کم کردن" code="{{ detail.product.id }}"
+                                    code_id="s{{ detail.product.id }}" iddiv="div{{ detail.product.id }}"><i
+                                    class="icofont-minus"></i></button>
+                            <input class="action-input" min="1" title="تعداد مورد نیاز" type="text" name="quantity"
+                                   value="{{ detail.count }}">
+                            <button class="action-plus" title="زیاد کردن" code="{{ detail.product.id }}"
+                                    code_id="s{{ detail.product.id }}"><i class="icofont-plus"></i></button>
+                        </div>
+                        <h6 id="s{{ detail.product.id }}">{{ detail.get_final_price }} ريال</h6>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="cart-footer">
+
+        <a class="cart-checkout-btn" href="{% url 'order:checkout' %}">
+            <span class="checkout-label">برو به تسویه حساب</span>
+            <span class="checkout-price">{{ sum }} ريال</span>
+        </a>
+    </div>
+</aside>
+<!--=====================================
+                CART SIDEBAR PART END
+    =======================================-->
+
+
+<!--=====================================
+              NAV SIDEBAR PART START
+    =======================================-->
+<aside class="nav-sidebar">
+    <div class="nav-header">
+        <a href="{% url 'blog:index' %}"><img src="{{ media_url }}images/logo.png" alt="logo"></a>
+        <button class="nav-close"><i class="icofont-close"></i></button>
+    </div>
+    <div class="nav-content">
+
+        <!-- This commentable code show when user login or register -->
+        <div class="nav-profile">
+            <a class="nav-user" href="#"><img src="{{ media_url }}images/user.png" alt="user"></a>
+            <h4 class="nav-name"><a href="/"> {{ user.username }} </a></h4>
+        </div>
+
+        <ul class="nav-list">
+            <li><a class="nav-link" href="{% url 'account:factor' %}"><i class="icofont-contacts"></i>فاکتور ها</a></li>
+
+            </li>
+            <li><a class="nav-link" href="/"><i class="icofont-logout"></i>خروج</a></li>
+        </ul>
+
+        <div class="nav-footer">
+            <p>کلیه حقوق این قالب متعلق به <a href="#"> میوه باما است </a></p>
+        </div>
+    </div>
+</aside>
+<!--=====================================
+              NAV SIDEBAR PART END
+    =======================================-->
+
+
+<!--=====================================
+                MOBILE-MENU PART START
+    =======================================-->
+
+<!--=====================================
+                MOBILE-MENU PART END
+    =======================================-->
+
+
+<!--=====================================
+                PRODUCT VIEW START
+    =======================================-->
+
+<!--*=====================================
+                PRODUCT VIEW END
+    =======================================-->
+
+<!--? مزیت رقابتی -->
+<div class="container-fluid mb-3">
+    <section class="imageBannerSectionHeader">
+        <div>
+            <img src="{{ title_index.image.url }}" alt="banner">
+            <span> {{ title_index.title1 }} </span>
+            <span> {{ title_index.title2 }} </span>
+            <span> {{ title_index.title3 }} </span>
+            <span> {{ title_index.title4 }} </span>
+            <span> {{ title_index.title }} </span>
+        </div>
+    </section>
+
+</div>
+<div class="container-fluid">
+    <section class="px-5">
+        <form action="{% url 'blog:search' %}" method="get">
+            <div class="group">
+                <button class="icon">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
+                        <g>
+                            <path
+                                    d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
+                            </path>
+                        </g>
+                    </svg>
+                </button>
+
+                <input placeholder="دنبال چی می گردی؟" name="q" class="input">
+
+            </div>
+        </form>
+    </section>
+</div>
+<!--? مزیت رقابتی -->
+
+<!--*=====================================
+                BANNER PART START
+    =======================================-->
+<section class="home-index-slider slider-arrow slider-dots">
+    {% for slider in slider_index %}
+        <div class="banner-part banner-1">
+            <div class="container">
+                <div class="row align-مورد-center">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="banner-content">
+                            <h1>{{ slider.title }}</h1>
+                            <p>{{ slider.description }}</p>
+                            <div class="banner-btn">
+
+                                <a class="btn btn-inline" href="{% url 'blog:products' %}">
+                                    <i class="fas fa-shopping-basket"></i>
+                                    <span>خرید همین حالا</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="banner-img">
+                            <img src="{{ slider.image.url }}" alt="index">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+
+
+    {#    <div class="banner-part banner-2">#}
+    {#        <div class="container">#}
+    {#            <div class="row align-مورد-center">#}
+    {#                <div class="col-md-6 col-lg-6">#}
+    {#                    <div class="banner-img">#}
+    {#                        <img src="{{ media_url }}images/home/index/02.png" alt="index">#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                <div class="col-md-6 col-lg-6">#}
+    {#                    <div class="banner-content">#}
+    {#                        <h1>تازه ترین محصولات در سبد خرید شما!</h1>#}
+    {#                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک#}
+    {#                            است</p>#}
+    {#                        <div class="banner-btn">#}
+    {#                            <a class="btn btn-inline" href="{% url 'blog:products'  %}">#}
+    {#                                <i class="fas fa-shopping-basket"></i>#}
+    {#                                <span>خرید همین حالا</span>#}
+    {#                            </a>#}
+    {##}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+</section>
+<!--=====================================
+                BANNER PART END
+    =======================================-->
+
+
+<!--=====================================
+                SUGGEST PART START
+    =======================================-->
+<section class="section suggest-part">
+    <div class="container">
+        <ul class="suggest-slider slider-arrow">
+            {% for category in category %}
+                <li>
+                    <a class="suggest-card" href="/products?category={{ category.id }}">
+                        <img src="{{ category.image.url }}" alt="suggest">
+                        <h5>{{ category.name }} </h5>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+<!--=====================================
+                SUGGEST PART END
+    =======================================-->
+
+<!--? slider -->
+<div class="container mb-5">
+    <ul class="sliderCompetitiveAdvantage slider-arrow">
+        {% for category in category %}
+            <li>
+                <img src="{{ category.image.url }}" alt="suggest">
+                <h5>{{ category.name }}</h5>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+<!--? slider -->
+
+<!--=====================================
+                RECENT PART START
+    =======================================-->
+<section class="section recent-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>پر فروش ترین محصولات</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+            {% for product in products_sell %}
+                <div class="col">
+                    <div class="product-card">
+                        <div class="product-media">
+                            <div class="product-label">
+                                <label class="label-text sale">فروش</label>
+                                <span class="label-text sale"> %{{ product.discount }}تخفیف</span>
+                            </div>
+                            <a class="product-image" href="{% url 'blog:product-detail' product.id %}">
+                                <img src="{{ product.image.url }}" alt="product">
+                            </a>
+                            <div class="product-widget">
+
+                                <a title="Product View" href="{% url 'blog:product-detail' product.id %}"
+                                   class="fas fa-eye" data-bs-toggle="modal"
+                                   data-bs-target="#product-view"></a>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h6 class="product-name">
+                                <a>{{ product.title }}</a>
+                            </h6>
+                            <h6 class="product-price">
+
+                                <span>{{ product.price }} ريال<small>/کیلو</small></span>
+                            </h6>
+
+                            <div class="product-action d-flex">
+                                <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
+                                <input class="action-input" title="تعداد مورد نیاز" type="number"
+                                       id="input{{ product.id }}"
+                                       value="1" min="1">
+                                <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
+                            </div>
+                            <button class="product-add mt-3" title="افزودن به سبد خرید"
+                                    onclick="addProductToOrder({{ product.id }},'input{{ product.id }}')">
+                                <i class="fas fa-shopping-basket"></i>
+                                <span>افزودن</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-btn-25">
+                    <a href="{% url 'blog:products' %}" class="btn btn-outline">
+                        <i class="fas fa-eye"></i>
+                        <span>موارد بیشتر</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=====================================
+                RECENT PART END
+    =======================================-->
+
+
+<!--=====================================
+                PROMOTION PART START
+    =======================================-->
+
+<!--=====================================
+                PROMOTION PART END
+    =======================================-->
+
+
+<!--=====================================
+                FEATURED PART START
+    =======================================-->
+<section class="section feature-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>جدید ترین محصولات</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-2">
+            {% for product in time_sort %}
+                <div class="col">
+                    <div class="feature-card">
+                        <div class="feature-media">
+                            <div class="feature-label">
+                                <label class="label-text feat">جدید</label>
+                            </div>
+
+                            <a class="feature-image" href="{% url 'blog:product-detail' product.id %}">
+                                <img src="{{ product.image.url }}" alt="product">
+                            </a>
+                            <div class="feature-widget">
+
+                                <a title="Product View" href="{% url 'blog:product-detail' product.id %}"
+                                   class="fas fa-eye" data-bs-toggle="modal"
+                                   data-bs-target="#product-view"></a>
+                            </div>
+                        </div>
+                        <div class="feature-content">
+                            <h6 class="feature-name">
+                                <a href="{% url 'blog:product-detail' product.id %}">{{ product.title }}</a>
+                            </h6>
+
+                            <h6 class="feature-price">
+                                <span>{{ product.price }} ريال</span>
+                            </h6>
+                            <p class="feature-desc">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+                                استفاده از طراحان گرافیک است...</p>
+                            <div class="product-action d-flex">
+                                <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
+                                <input class="action-input" title="تعداد مورد نیاز" type="number" id="product-count"
+                                       value="1" min="1">
+                                <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
+                            </div>
+                            <button class="product-add mt-3" title="افزودن به سبد خرید"
+                                    onclick="addProductToOrder({{ product.id }})">
+                                <i class="fas fa-shopping-basket"></i>
+                                <span>افزودن</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-btn-25">
+                    <a href="{% url 'blog:products' %}" class="btn btn-outline">
+                        <i class="fas fa-eye"></i>
+                        <span>موارد بیشتر</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=====================================
+                FEATURE PART END
+    =======================================-->
+
+
+<!--=====================================
+                COUNTDOWN PART START
+    =======================================-->
+
+<!--=====================================
+                COUNTDOWN PART END
+    =======================================-->
+
+
+<!--=====================================
+                NEW ITEM PART START
+    =======================================-->
+<!--=====================================
+                NEW ITEM PART END
+    =======================================-->
+
+
+<!--=====================================
+                PROMOTION PART START
+    =======================================-->
+<div class="section promo-part">
+    <div class="container">
+        <div class="row">
+            {% for image in image_index %}
+                <div class="col-sm-12 col-md-6 col-lg-6 px-xl-3">
+                    <div class="promo-img">
+                        <img src="{{ image.image.url }}" alt="promo">
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+<!--=====================================
+                PROMOTION PART END
+    =======================================-->
+
+
+<!--=====================================
+                NICHE PART START
+    =======================================-->
+<section class="section niche-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>محصولات اختصاصی گرینی</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="nav nav-tabs">
+                    <li>
+                        <a href="#top-order" class="tab-link active" data-bs-toggle="tab">
+                            <i class="icofont-price"></i>
+                            <span>پر فروش ترین</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#top-rate" class="tab-link" data-bs-toggle="tab">
+                            <i class="icofont-star"></i>
+                            <span>جدید ترین</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#top-disc" class="tab-link" data-bs-toggle="tab">
+                            <i class="icofont-sale-discount"></i>
+                            <span>بیشترین تخفیف</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#top-price" class="tab-link" data-bs-toggle="tab">
+                            <i class="icofont-sale-discount"></i>
+                            <span>کم ترین قیمت</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="tab-pane fade show active" id="top-order">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                {% for product in products_sell %}
+                    <div class="col">
+                        <div class="product-card">
+                            <div class="product-media">
+                                <div class="product-label">
+                                    <label class="label-text order">فروش</label>
+                                </div>
+
+                                <a class="product-image" href="{% url 'blog:product-detail' product.id %}">
+                                    <img src="{{ product.image.url }}" alt="product">
+                                </a>
+                                <div class="product-widget">
+
+                                    <a title="Product View" href="#" class="fas fa-eye" data-bs-toggle="modal"
+                                       data-bs-target="#product-view"></a>
+                                </div>
+                            </div>
+                            <div class="product-content">
+
+                                <h6 class="product-name">
+                                    <a href="{% url 'blog:product-detail' product.id %}">{{ product.title }}</a>
+                                </h6>
+                                <h6 class="product-price">
+                                    <span>{{ product.price }} ريال</span>
+                                </h6>
+                                <div class="product-action d-flex">
+                                    <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
+                                    <input class="action-input" title="تعداد مورد نیاز" type="number" id="product-count"
+                                           value="1" min="1">
+                                    <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
+                                </div>
+                                <button class="product-add mt-3" title="افزودن به سبد خرید"
+                                        onclick="addProductToOrder({{ product.id }})">
+                                    <i class="fas fa-shopping-basket"></i>
+                                    <span>افزودن</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="top-rate">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                {% for product in time_sort %}
+                    <div class="col">
+                        <div class="product-card">
+                            <div class="product-media">
+                                <div class="product-label">
+                                    <label class="label-text rate">جدید</label>
+                                </div>
+
+                                <a class="product-image" href="{% url 'blog:product-detail' product.id %}">
+                                    <img src="{{ product.image.url }}" alt="product">
+                                </a>
+                                <div class="product-widget">
+
+                                    <a title="Product View" href="{% url 'blog:product-detail' product.id %}"
+                                       class="fas fa-eye" data-bs-toggle="modal"
+                                       data-bs-target="#product-view"></a>
+                                </div>
+                            </div>
+                            <div class="product-content">
+
+                                <h6 class="product-name">
+                                    <a href="{% url 'blog:product-detail' product.id %}">{{ product.title }}</a>
+                                </h6>
+                                <h6 class="product-price">
+                                    <span>{{ product.price }} ريال</span>
+                                </h6>
+                                <div class="product-action d-flex">
+                                    <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
+                                    <input class="action-input" title="تعداد مورد نیاز" type="number" id="product-count"
+                                           value="1" min="1">
+                                    <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
+                                </div>
+                                <button class="product-add mt-3" title="افزودن به سبد خرید"
+                                        onclick="addProductToOrder({{ product.id }})">
+                                    <i class="fas fa-shopping-basket"></i>
+                                    <span>افزودن</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="top-disc">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                {% for product in products_discount %}
+                    <div class="col">
+                        <div class="product-card">
+                            <div class="product-media">
+                                <div class="product-label">
+                                    <label class="label-text off">-{{ product.discount }}%</label>
+                                </div>
+
+                                <a class="product-image" href="{% url 'blog:product-detail' product.id %}">
+                                    <img src="{{ product.image.url }}" alt="product">
+                                </a>
+                                <div class="product-widget">
+
+                                    <a title="Product View" href="{% url 'blog:product-detail' product.id %}"
+                                       class="fas fa-eye" data-bs-toggle="modal"
+                                       data-bs-target="#product-view"></a>
+                                </div>
+                            </div>
+                            <div class="product-content">
+
+                                <h6 class="product-name">
+                                    <a href="{% url 'blog:product-detail' product.id %}">{{ product.title }}</a>
+                                </h6>
+                                <h6 class="product-price">
+                                    <span>{{ product.price }} ريال</span>
+                                </h6>
+                                <div class="product-action d-flex">
+                                    <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
+                                    <input class="action-input" title="تعداد مورد نیاز" type="number" id="product-count"
+                                           value="1" min="1">
+                                    <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
+                                </div>
+                                <button class="product-add mt-3" title="افزودن به سبد خرید"
+                                        onclick="addProductToOrder({{ product.id }})">
+                                    <i class="fas fa-shopping-basket"></i>
+                                    <span>افزودن</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="top-price">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                {% for product in cheapest_products %}
+                    <div class="col">
+                        <div class="product-card">
+                            <div class="product-media">
+
+                                <a class="product-image" href="{% url 'blog:product-detail' product.id %}">
+                                    <img src="{{ product.image.url }}" alt="product">
+                                </a>
+                                <div class="product-widget">
+
+                                    <a title="Product View" href="{% url 'blog:product-detail' product.id %}"
+                                       class="fas fa-eye" data-bs-toggle="modal"
+                                       data-bs-target="#product-view"></a>
+                                </div>
+                            </div>
+                            <div class="product-content">
+
+                                <h6 class="product-name">
+                                    <a href="{% url 'blog:product-detail' product.id %}">{{ product.title }}</a>
+                                </h6>
+                                <h6 class="product-price">
+
+                                    <span>{{ product.price }} ريال</span>
+                                </h6>
+                                <div class="product-action d-flex">
+                                    <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
+                                    <input class="action-input" title="تعداد مورد نیاز" type="number" id="product-count"
+                                           value="1" min="1">
+                                    <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
+                                </div>
+                                <button class="product-add mt-3" title="افزودن به سبد خرید"
+                                        onclick="addProductToOrder({{ product.id }})">
+                                    <i class="fas fa-shopping-basket"></i>
+                                    <span>افزودن</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-btn-25">
+                    <a href="{% url 'blog:products' %}" class="btn btn-outline">
+                        <i class="fas fa-eye"></i>
+                        <span>موارد بیشتر</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=====================================
+                NICHE PART END
+    =======================================-->
+
+
+<!--=====================================
+                BRAND PART START
+    =======================================-->
+
+<!--=====================================
+                BRAND PART END
+    =======================================-->
+
+<!--=====================================
+                  BLOG PART START
+    =======================================-->
+<section class="section blog-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h2>مقالات ما را بخوانید</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="blog-slider slider-arrow">
+                    {% for article in articles %}
+                        <div class="blog-card">
+                            <div class="blog-media">
+                                <a class="blog-img" href="/">
+                                    <img src="{{ article.image.url }}" alt="blog">
+                                </a>
+                            </div>
+                            <div class="blog-content">
+                                <ul class="blog-meta">
+                                    <li>
+                                        <i class="fas fa-user"></i>
+                                        <span>{{ article.author }}</span>
+                                    </li>
+
+                                </ul>
+                                <h4 class="blog-title">
+                                    <a href="/">{{ article.title }}</a>
+                                </h4>
+                                <p class="blog-desc">
+                                    {{ article.description }}
+                                </p>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!--=====================================
+                  BLOG PART END
+    =======================================-->
+
+
+<!--=====================================
+                NEWSLETTER PART START
+    =======================================-->
+
+<!--=====================================
+                NEWSLETTER PART END
+    =======================================-->
+
+
+<!--=====================================
+                INTRO PART START
+    =======================================-->
+<section class="intro-part">
+    <div class="container">
+        <div class="row intro-content">
+            {% for advantage in advantage_index %}
+                <div class="col-sm-6 col-lg-3">
+                    <div class="intro-wrap">
+                        <div class="intro-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="intro-content">
+                            <h5>{{ advantage.title }}</h5>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+<!--=====================================
+                INTRO PART END
+    =======================================-->
+
+
+<!--=====================================
+                 FOOTER PART START
+    =======================================-->
+<footer class="footer-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-xl-3">
+                <div class="footer-widget">
+                    <a class="footer-logo" href="#">
+                        <img src="{{ footer.logo.url }}" alt="logo">
+                    </a>
+                    <p class="footer-desc">{{ footer.title_logo }}</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="footer-widget contact">
+                    <h3 class="footer-title">{{ footer.Contact_title }}</h3>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="icofont-ui-email"></i>
+                            <p>
+                                <span>{{ footer.Contact_email }}</span>
+                            </p>
+                        </li>
+                        <li>
+                            <i class="icofont-ui-touch-phone"></i>
+                            <p>
+                                <span>{{ footer.Contact_phone }}</span>
+                            </p>
+                        </li>
+                        <li>
+                            <i class="icofont-location-pin"></i>
+                            <p>{{ footer.Contact_address }}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="footer-widget">
+                    <h3 class="footer-title">دسترسی سریع</h3>
+                    <div class="footer-links">
+                        <ul>
+                            <li><a href="{% url 'blog:products' %}"> تمامی محصولات</a></li>
+                            <li><a href="{% url 'account:login' %}">صفحه ورود</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="footer-bottom">
+                    <p class="footer-copytext">
+                        &copy; ساخته شده توسط
+                        <a target="_blank" href="https://eli-soft.ir">
+                            الیسافت
+                        </a>
+                        ❤️
+                    </p>
+                    <p class="footer-copytext">&copy; تمامی حقوق این سایت متعلق به <a target="_blank" href="#">
+                        میوه باما
+                    </a>
+                        تعلق دارد!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--=====================================
+                  FOOTER PART END
+    =======================================-->
+
+
+<!--=====================================
+                JS LINK PART START
+    =======================================-->
+<!-- VENDOR -->
+<script src="{% static 'vendor/bootstrap/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/bootstrap.min.js' %}"></script>
+<script src="{% static 'vendor/countdown/countdown.min.js' %}"></script>
+<script src="{% static 'vendor/niceselect/nice-select.min.js' %}"></script>
+<script src="{% static 'vendor/slickslider/slick.min.js' %}"></script>
+<script src="{% static 'vendor/venobox/venobox.min.js' %}"></script>
+
+<!-- CUSTOM -->
+<script src="{% static 'js/nice-select.js' %}"></script>
+<script src="{% static 'js/countdown.js' %}"></script>
+<script src="{% static 'js/accordion.js' %}"></script>
+<script src="{% static 'js/venobox.js' %}"></script>
+<script src="{% static 'js/slick.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function addProductToOrder(productId, input) {
+        const productCount = $('#' + input).val();
+        $.get('Order/orders?product_id=' + productId + '&count=' + productCount).then(res => {
+            if (res.status === 'success') {
+                Swal.fire({
+                    title: "Success",
+                    text: "محصول با موفقیت به سبد خرید اضافه شد",
+                    icon: "success"
+                });
+            }
+            if (res.status === 'invalid_count') {
+                Swal.fire({
+                    title: "خطا",
+                    text: "تعداد محصول وارد شده نامعتبر است",
+                    icon: "error"
+                });
+            }
+            if (res.status === 'not_found') {
+                Swal.fire({
+                    title: "خطا",
+                    text: "محصول مورد نظر یافت نشد",
+                    icon: "error"
+                });
+            }
+            if (res.status === 'not_authenticated') {
+                Swal.fire({
+                    title: "خطا",
+                    text: "ابتدا باید ثبت نام کنید و وارد سایت شوید",
+                    icon: "error"
+                });
+            }
+        })
+    }
+
+    function sort_category(category) {
+        $.get('products?category=' + category)
+    }
+</script>
+<!--=====================================
+                JS LINK PART END
+    =======================================-->
+</body>
+
+</html>

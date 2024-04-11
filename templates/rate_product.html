@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>امتیاز دهی به محصول ({{ product.title }})</h1>
+  <form method="post" action="{% url 'blog:rate_product' product.id %}">
+     <h2>امتیاز خود را به این محصول از بین 1 تا 5 بدهید</h2>
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">ثبت امتیاز</button>
+  </form>
+</body>
+</html>
