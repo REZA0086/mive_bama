@@ -37,16 +37,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
-    'account.apps.AccountConfig',
+    'account_shop_project.apps.AccountConfig',
     'Order.apps.OrderConfig',
-    'Article.apps.ArticleConfig',
     'comment.apps.CommentConfig',
     'django.contrib.humanize',
     'django_jalali',
     'rest_framework',
     'drf_yasg',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 
 ]
+
 MERCHANT = '00000000-0000-0000-0000-000000000000'
 SANDBOX = True
 MIDDLEWARE = [
@@ -57,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 ROOT_URLCONF = 'mive_bama.urls'
@@ -83,12 +88,12 @@ WSGI_APPLICATION = 'mive_bama.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'account_shop_project.User'
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mive_bama',
+        'NAME': 'mive_bama_db',
         'USER': 'root',
         'PASSWORD': 'Reza8686',
         'OPTIONS': {
@@ -134,3 +139,5 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = path.join(BASE_DIR, 'media/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+

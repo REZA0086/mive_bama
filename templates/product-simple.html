@@ -113,9 +113,9 @@
                         <li class="navbar-item dropdown">
                             <a class="navbar-link dropdown-arrow" href="#">احراز هویت</a>
                             <ul class="dropdown-position-list">
-                                <li><a href="{% url 'account:login' %}">لاگین</a></li>
-                                <li><a href="{% url 'account:register' %}">ثبت نام</a></li>
-                                <li><a href="{% url 'account:reset_password' %}">تغییر پسوورد</a></li>
+                                <li><a href="{% url 'account_shop_project:login' %}">لاگین</a></li>
+                                <li><a href="{% url 'account_shop_project:register' %}">ثبت نام</a></li>
+                                <li><a href="{% url 'account_shop_project:reset_password' %}">تغییر پسوورد</a></li>
                             </ul>
                         </li>
      
@@ -224,11 +224,11 @@
                 <div class="details-content">
                     <h3 class="details-name"><a>{{ product.title }}</a></h3>
                     
-                    {% if rate %}
+                    
                     <div class="details-rating">
-                        <p>امتیاز محصول :  {{ rate.value }}</p>
+                        <p>امتیاز محصول :  {{  average_rating }}</p>
                     </div>
-                    {% endif %}
+                    
                     <h3 class="details-price">
                 
                         <span>{{ product.price }} ريال<small>/برای هر کیلو</small></span>

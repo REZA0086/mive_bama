@@ -82,9 +82,6 @@
         <div class="header-content">
 
 
-            <a href="{% url 'blog:index' %}" class="header-logo">
-                <img src="{{ media_url }}images/logo.png" alt="logo">
-            </a>
 
 
         </div>
@@ -111,9 +108,9 @@
                         <li class="navbar-item dropdown">
                             <a class="navbar-link dropdown-arrow" href="#">احراز هویت</a>
                             <ul class="dropdown-position-list">
-                                <li><a href="{% url 'account:login' %}">لاگین</a></li>
-                                <li><a href="{% url 'account:register' %}">ثبت نام</a></li>
-                                <li><a href="{% url 'account:reset_password' %}">تغییر پسوورد</a></li>
+                                <li><a href="{% url 'account_shop_project:login' %}">لاگین</a></li>
+                                <li><a href="{% url 'account_shop_project:register' %}">ثبت نام</a></li>
+                                <li><a href="{% url 'account_shop_project:reset_password' %}">تغییر پسوورد</a></li>
                             </ul>
                         </li>
 
@@ -352,11 +349,11 @@
         <div class="row">
 
             <div class="col-lg-12">
-                <div class="account-card">
-                    <div class="account-title">
+                <div class="account_mive_Bama-card">
+                    <div class="account_mive_Bama-title">
                         <h4>سفارش شما</h4>
                     </div>
-                    <div class="account-content">
+                    <div class="account_mive_Bama-content">
                         <div class="table-scroll">
                             <table class="table-list">
                                 <thead>
@@ -638,9 +635,7 @@
         <div class="row">
             <div class="col-sm-6 col-xl-3">
                 <div class="footer-widget">
-                    <a class="footer-logo" href="#">
-                        <img src="{{ media_url }}images/logo.png" alt="logo">
-                    </a>
+
                     <p class="footer-desc">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
                         طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
                     <ul class="footer-social">

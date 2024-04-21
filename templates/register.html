@@ -58,7 +58,7 @@
                 <div class="row justify-content-center">
                     <div class="col-12 col-sm-10 col-md-12 col-lg-12 col-xl-10">
                         <div class="user-form-logo">
-                            <a href="{% url 'blog:index' %}"><img src="{{ media_url }}images/logo.png" alt="logo"></a>
+                            
                         </div>
                         <div class="user-form-card">
                             <div class="user-form-title">
@@ -66,7 +66,7 @@
                                 <p>ثبت نام شما تنها چند دقیقه زمان می برد.</p>
                             </div>
                             <div class="user-form-group">
-                                <form class="user-form" action="{% url 'account:register' %}" method="post">
+                                <form class="user-form" action="{% url 'account_shop_project:register' %}" method="post">
                                     {% csrf_token %}
                                     <div class="form-group">
                                         {{ form.username }}
@@ -89,10 +89,10 @@
                             </div>
                         </div>
                         <div class="user-form-remind">
-                            <p>از قبل عضو هستید؟<a href="{% url 'account:login' %}">وارد شوید</a></p>
+                            <p>از قبل عضو هستید؟<a href="{% url 'account_shop_project:login' %}">وارد شوید</a></p>
                         </div>
                         <div class="user-form-footer">
-                            <p>Greeny | &COPY; Copyright by <a href="#">MRzic</a></p>
+                            <p>ساخته شده توسط محمد رضا اخلاقی</p>
                         </div>
                     </div>
                 </div>

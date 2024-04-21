@@ -159,7 +159,7 @@ $('.action-plus').on('click', function (event) {
     let id = event.currentTarget.attributes[2].nodeValue;
     let code_id = event.currentTarget.attributes[3].nodeValue;
 
-    $.get('Order/add_order?product_id=' + id).then(res => {
+    $.get('/Order/add_order?product_id=' + id).then(res => {
         if (res.final_price) {
             document.querySelector("#" + code_id).innerHTML = res.final_price;
         }

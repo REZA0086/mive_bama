@@ -1,11 +1,13 @@
 import json
 import time
+
+from django.utils.crypto import get_random_string
 from rest_framework import generics
 from Order.serializers import *
 import requests
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest, JsonResponse
+from django.http import HttpRequest, JsonResponse, HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.shortcuts import render
@@ -101,8 +103,6 @@ def add_from_cart(request: HttpRequest):
 def request_payment(request: HttpRequest):
     current_order, created = Order.objects.get_or_create(is_paid=False, user_id=request.user.id)
     final_price = current_order.calculate_total()
-    if final_price == 0:
-        return redirect(reverse('blog:index'))
 
     data = {
         "MerchantID": settings.MERCHANT,
@@ -122,32 +122,31 @@ def request_payment(request: HttpRequest):
             if response['Status'] == 100:
                 return redirect(ZP_API_STARTPAY + str(response['Authority']))
             else:
-                return JsonResponse({'status': 'pay error'})
+                return HttpResponse({'status': 'pay error'})
         else:
-            return JsonResponse({'status': 'pay error'})
+            return HttpResponse({'status': 'pay error'})
 
     except requests.exceptions.Timeout:
-        return JsonResponse({'status': 'pay error'})
+        return HttpResponse({'status': 'pay error'})
     except requests.exceptions.ConnectionError:
-        return JsonResponse({'status': 'pay error'})
+        return HttpResponse({'status': 'pay error'})
 
 
 def verify_payment(request: HttpRequest):
-    try:
+    if request.user.is_authenticated:
+
         current_order = Order.objects.get(is_paid=False, user_id=request.user.id)
-    except:
+
+        current_order.tracking_code = get_random_string(11)
+        total_price = current_order.calculate_total_price()
+
+        for order in current_order.orderdetail_set.all():
+            if order.product.order_count is not None:
+                order.product.order_count = int(order.product.order_count) + order.count
+            else:
+                order.product.order_count = order.count
+    else:
         return redirect('blog:index')
-    total_price = current_order.calculate_total_price()
-    if total_price == 0:
-        return redirect(reverse('blog:index'))
-
-    for order in current_order.orderdetail_set.all():
-        if order.product.order_count is not None:
-            order.product.order_count = int(order.product.order_count) + order.count
-        else:
-            order.product.order_count = order.count
-
-
     data = {
         "MerchantID": settings.MERCHANT,
         "Amount": int(total_price * 10),
@@ -166,23 +165,23 @@ def verify_payment(request: HttpRequest):
             return render(request, 'payment_result.html',
                           {'success': f'تراکنش با موفقیت انجام شد'})
         else:
-            return render(request, 'payment_result.html',{'error': 'error'})
+            return render(request, 'payment_result.html', {'error': 'error'})
     else:
-        return JsonResponse({'status': 'nop'})
+        return HttpResponse({'status': 'nop'})
 
 
 class CheckoutView(View):
     template_name = 'checkout.html'
+
     def get(self, request, *args, **kwargs):
         current_order, created = Order.objects.get_or_create(is_paid=False, user_id=request.user.id)
         total_price = current_order.calculate_total_price()
         final_price = current_order.calculate_total()
 
-
         if total_price == 0:
             return redirect(reverse('blog:index'))
         user = User.objects.get(id=request.user.id)
-        orders = OrderDetail.objects.filter(order = current_order)
+        orders = OrderDetail.objects.filter(order=current_order)
 
         context = {
             'media_url': settings.MEDIA_URL,
@@ -192,7 +191,8 @@ class CheckoutView(View):
             'final_price': final_price,
 
         }
-        return render(request, self.template_name,context)
+        return render(request, self.template_name, context)
+
     def post(self, request, *args, **kwargs):
         current_order, created = Order.objects.get_or_create(is_paid=False, user_id=request.user.id)
         current_order.is_paid = True
@@ -205,8 +205,7 @@ class Order_api(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
+
 class OrderDetail_api(generics.ListCreateAPIView):
     queryset = OrderDetail.objects.all()
     serializer_class = OrderDetailSerializer
-
-

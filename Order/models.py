@@ -1,7 +1,7 @@
 from django.db import models
 from django.db import models
 from django.db.models import ForeignKey
-from account.models import *
+from account_shop_project.models import *
 from blog.models import *
 from django_jalali.db import models as jmodels
 import jdatetime
@@ -11,6 +11,10 @@ class Order(models.Model):
     user = ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, verbose_name="نام مشتری")
     is_paid = models.BooleanField(verbose_name="نهایی شده / نشده")
     payment_date = jmodels.jDateField(auto_now=True, verbose_name="تاریخ پرداخت", blank=True, null=True)
+    tracking_code = models.CharField(max_length=11, blank=True, null=True, verbose_name="کد پیگیری")
+    status = (
+    ('Collecting', 'Collecting'), ('Collected', 'Collected'), ('Delivered', 'Delivered'), ('Returned', 'Returned'))
+    status = models.CharField(max_length=10, choices=status, default='Collecting', verbose_name="وضیعت")
 
     def __str__(self):
         return str(self.user)

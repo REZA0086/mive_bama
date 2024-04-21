@@ -83,25 +83,25 @@
 
                 <button class="header-user"><img src="{{ media_url }}images/user.png" alt="user"></button>
 
-                <a href="{% url 'account:login' %}"
+                <a href="{% url 'account_shop_project:login' %}"
                    class="btn btn-outline-info rounded btn-sm py-1 px-3 d-flex align-items-center"
                    title="ورود">
                     <i class="fas fa-sign-in-alt"></i>
                     <span>ورود</span>
                 </a>
-                <a href="{% url 'account:login' %}"><img src="{{ media_url }}images/logo.png" alt="logo"></a>
+                
             </div>
 
             <section class="d-flex">
                 <a href="{% url 'blog:index' %}" class="header-logo">
-                    <img src="{{ media_url }}images/logo.png" alt="logo">
+                    
                 </a>
                 {% if user.is_authenticated %}
                     <button class="header-user thow-header-user ms-4"><img src="{{ media_url }}images/user.png"
                                                                            alt="user">
                     </button>
                 {% else %}
-                    <a href="{% url 'account:login' %}"
+                    <a href="{% url 'account_shop_project:login' %}"
                        class="btn btn-outline-info btn-sm py-1 px-3 d-none d-lg-flex align-items-center" title="ورود">
                         <i class="fas fa-sign-in-alt"></i>
                         <span>ورود</span>
@@ -140,9 +140,9 @@
                         <li class="navbar-item dropdown">
                             <a class="navbar-link dropdown-arrow" href="#">احراز هویت</a>
                             <ul class="dropdown-position-list">
-                                <li><a href="{% url 'account:login' %}">لاگین</a></li>
-                                <li><a href="{% url 'account:register' %}">ثبت نام</a></li>
-                                <li><a href="{% url 'account:reset_password' %}">تغییر پسوورد</a></li>
+                                <li><a href="{% url 'account_shop_project:login' %}">لاگین</a></li>
+                                <li><a href="{% url 'account_shop_project:register' %}">ثبت نام</a></li>
+                                <li><a href="{% url 'account_shop_project:reset_password' %}">تغییر پسوورد</a></li>
                             </ul>
                         </li>
 
@@ -327,121 +327,43 @@
     <div class="cart-header">
         <div class="cart-total">
             <i class="fas fa-shopping-basket"></i>
-            <span>کل مورد (5)</span>
+
         </div>
         <button class="cart-close"><i class="icofont-close"></i></button>
     </div>
     <ul class="cart-list">
-        <li class="cart-item">
-            <div class="cart-media">
-                <a href="#"><img src="{{ media_url }}images/product/01.jpg" alt="product"></a>
-                <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
-            </div>
-            <div class="cart-info-group">
-                <div class="cart-info">
-                    <h6><a href="product-single.html">نام محصول موجود</a></h6>
-                    <p>قیمت واحد - 5 ریال</p>
+        {% for detail in order.orderdetail_set.all %}
+            <li class="cart-item div{{ detail.product.id }}">
+                <div class="cart-media">
+                    <a href="#"><img src="{{ detail.product.image.url }}" alt="product"></a>
+                    <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
                 </div>
-                <div class="cart-action-group">
-                    <div class="product-action">
-                        <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
-                        <input class="action-input" title="تعداد مورد نیاز" type="text" name="quantity" value="1">
-                        <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
+                <div class="cart-info-group">
+                    <div class="cart-info">
+                        <h6>{{ detail.product.title }}</h6>
+                        <p>قیمت واحد {{ detail.product.price }} ریال</p>
                     </div>
-                    <h6>56 ريال</h6>
-                </div>
-            </div>
-        </li>
-        <li class="cart-item">
-            <div class="cart-media">
-                <a href="#"><img src="{{ media_url }}images/product/02.jpg" alt="product"></a>
-                <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
-            </div>
-            <div class="cart-info-group">
-                <div class="cart-info">
-                    <h6><a href="product-single.html">نام محصول</a></h6>
-                    <p>قیمت واحد - 5 ریال</p>
-                </div>
-                <div class="cart-action-group">
-                    <div class="product-action">
-                        <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
-                        <input class="action-input" title="تعداد مورد نیاز" type="text" name="quantity" value="1">
-                        <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
+                    <div class="cart-action-group">
+                        <div class="product-action">
+                            <button class="action-minus" title="کم کردن" code="{{ detail.product.id }}"
+                                    code_id="s{{ detail.product.id }}" iddiv="div{{ detail.product.id }}"><i
+                                    class="icofont-minus"></i></button>
+                            <input class="action-input" min="1" title="تعداد مورد نیاز" type="text" name="quantity"
+                                   value="{{ detail.count }}">
+                            <button class="action-plus" title="زیاد کردن" code="{{ detail.product.id }}"
+                                    code_id="s{{ detail.product.id }}"><i class="icofont-plus"></i></button>
+                        </div>
+                        <h6 id="s{{ detail.product.id }}">{{ detail.get_final_price }} ريال</h6>
                     </div>
-                    <h6>56 ريال</h6>
                 </div>
-            </div>
-        </li>
-        <li class="cart-item">
-            <div class="cart-media">
-                <a href="#"><img src="{{ media_url }}images/product/03.jpg" alt="product"></a>
-                <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
-            </div>
-            <div class="cart-info-group">
-                <div class="cart-info">
-                    <h6><a href="product-single.html">نام محصول</a></h6>
-                    <p>قیمت واحد - 5 ریال</p>
-                </div>
-                <div class="cart-action-group">
-                    <div class="product-action">
-                        <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
-                        <input class="action-input" title="تعداد مورد نیاز" type="text" name="quantity" value="1">
-                        <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
-                    </div>
-                    <h6>56 ريال</h6>
-                </div>
-            </div>
-        </li>
-        <li class="cart-item">
-            <div class="cart-media">
-                <a href="#"><img src="{{ media_url }}images/product/04.jpg" alt="product"></a>
-                <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
-            </div>
-            <div class="cart-info-group">
-                <div class="cart-info">
-                    <h6><a href="product-single.html">نام محصول</a></h6>
-                    <p>قیمت واحد - 5 ریال</p>
-                </div>
-                <div class="cart-action-group">
-                    <div class="product-action">
-                        <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
-                        <input class="action-input" title="تعداد مورد نیاز" type="text" name="quantity" value="1">
-                        <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
-                    </div>
-                    <h6>56 ريال</h6>
-                </div>
-            </div>
-        </li>
-        <li class="cart-item">
-            <div class="cart-media">
-                <a href="#"><img src="{{ media_url }}images/product/05.jpg" alt="product"></a>
-                <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
-            </div>
-            <div class="cart-info-group">
-                <div class="cart-info">
-                    <h6><a href="product-single.html">نام محصول</a></h6>
-                    <p>قیمت واحد - 5 ریال</p>
-                </div>
-                <div class="cart-action-group">
-                    <div class="product-action">
-                        <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
-                        <input class="action-input" title="تعداد مورد نیاز" type="text" name="quantity" value="1">
-                        <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
-                    </div>
-                    <h6>56 ريال</h6>
-                </div>
-            </div>
-        </li>
+            </li>
+        {% endfor %}
     </ul>
     <div class="cart-footer">
-        <button class="coupon-btn">آیا کد تخفیف دارید؟</button>
-        <form class="coupon-form">
-            <input type="text" placeholder="کد تخفیف خود را وارد کنید">
-            <button type="submit"><span>ثبت</span></button>
-        </form>
-        <a class="cart-checkout-btn" href="checkout.html">
+
+        <a class="cart-checkout-btn" href="{% url 'order:checkout' %}">
             <span class="checkout-label">برو به تسویه حساب</span>
-            <span class="checkout-price">369 ريال</span>
+            <span class="checkout-price">{{ sum }} ريال</span>
         </a>
     </div>
 </aside>
@@ -735,10 +657,10 @@
 =======================================-->
 <section class="inner-section single-banner" style="background: url(images/single-banner.jpg) no-repeat center;">
     <div class="container">
-        <h2>فروشگاه 3 ستون</h2>
+        <h2>فروشگاه</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'blog:index' %}">خانه</a></li>
-            <li class="breadcrumb-item active" aria-current="page">فروشگاه 3 ستون</li>
+            <li class="breadcrumb-item active" aria-current="page">فروشگاه  </li>
         </ol>
     </div>
 </section>
@@ -798,42 +720,35 @@
                                     <div class="product-label">
                                         <label class="label-text sale">{{ product.discount }}</label>
                                     </div>
-                                    <button class="product-wish wish">
-                                        <i class="fas fa-heart"></i>
-                                    </button>
-                                    <a class="product-image" href="product-video.html">
+
+                                    <a class="product-image" href="{% url 'blog:product-detail' product.id %}">
                                         <img src="{{ product.image.url }}" alt="product">
                                     </a>
-                                    <div class="product-widget">
-                                        <a title="Product Compare" href="compare.html" class="fas fa-random"></a>
-                                        <a title="Product Video" href="https://youtu.be/9xzcVxSBbG8"
-                                           class="venobox fas fa-play" data-autoplay="true" data-vbtype="video"></a>
-                                        <a title="Product View" href="#" class="fas fa-eye" data-bs-toggle="modal"
-                                           data-bs-target="#product-view"></a>
-                                    </div>
+
                                 </div>
                                 <div class="product-content">
 
                                     <h6 class="product-name">
-                                        <a href="product-video.html">{{ product.title }}</a>
+                                        <a href="{% url 'blog:product-detail' product.id %}">{{ product.title }}</a>
                                     </h6>
                                     <h6 class="product-price">
 
                                         <span>{{ product.price }} ريال</span>
                                     </h6>
-                                    <button class="product-add" title="افزودن به سبد خرید">
-                                        <i class="fas fa-shopping-basket"></i>
-                                        <span>افزودن</span>
-                                    </button>
-                                    <div class="product-action">
+                                    <div class="product-action d-flex">
                                         <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i>
                                         </button>
-                                        <input class="action-input" title="تعداد مورد نیاز" type="text"
-                                               name="quantity"
-                                               value="1">
+                                        <input class="action-input" title="تعداد مورد نیاز" type="number"
+                                               id="input{{ product.id }}"
+                                               value="1" min="1">
                                         <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i>
                                         </button>
                                     </div>
+                                    <button class="product-add mt-3" title="افزودن به سبد خرید"
+                                            onclick="addProductToOrder({{ product.id }},'input{{ product.id }}')">
+                                        <i class="fas fa-shopping-basket"></i>
+                                        <span>افزودن</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -924,7 +839,7 @@
             <div class="col-sm-6 col-xl-3">
                 <div class="footer-widget">
                     <a class="footer-logo" href="#">
-                        <img src="{{ media_url }}images/logo.png" alt="logo">
+                        
                     </a>
                     <p class="footer-desc">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
                         طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
@@ -967,45 +882,20 @@
                     <h3 class="footer-title">دسترسی سریع</h3>
                     <div class="footer-links">
                         <ul>
-                            <li><a href="#">اکانت من</a></li>
-                            <li><a href="#">تاریخچه خرید</a></li>
-                            <li><a href="#">رهگیری سفارش</a></li>
-                            <li><a href="#">بهترین فروش</a></li>
-                            <li><a href="#">جدید ترین محصولات</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="#">لوکیشن</a></li>
-                            <li><a href="#">زیرمجموعه گیری</a></li>
-                            <li><a href="#">اترابط با ما</a></li>
-                            <li><a href="#">قوانین</a></li>
-                            <li><a href="#">سوالات متداول</a></li>
+                            <li><a href="{% url 'blog:products' %}"> تمامی محصولات</a></li>
+                            <li><a href="{% url 'account_shop_project:login' %}">صفحه ورود</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="footer-widget">
-                    <h3 class="footer-title">دانلود اپلیکیشن</h3>
-                    <p class="footer-desc">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
-                        طراحان گرافیک است!</p>
-                    <div class="footer-app">
-                        <a href="#"><img src="{{ media_url }}images/google-store.png" alt="google"></a>
-                        <a href="#"><img src="{{ media_url }}images/app-store.png" alt="app"></a>
-                    </div>
-                </div>
-            </div>
+            
         </div>
         <div class="row">
             <div class="col-12">
                 <div class="footer-bottom">
-                    <p class="footer-copytext">&copy; تمامی حقوق این سایت متعلق به <a target="_blank" href="#">Mrzic</a>
+                    <p class="footer-copytext">ساخته شده توسط محمد رضا اخلاقی
                     </p>
-                    <div class="footer-card">
-                        <a href="#"><img src="{{ media_url }}images/payment/jpg/01.jpg" alt="payment"></a>
-                        <a href="#"><img src="{{ media_url }}images/payment/jpg/02.jpg" alt="payment"></a>
-                        <a href="#"><img src="{{ media_url }}images/payment/jpg/03.jpg" alt="payment"></a>
-                        <a href="#"><img src="{{ media_url }}images/payment/jpg/04.jpg" alt="payment"></a>
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -1035,11 +925,46 @@
 <script src="{% static 'js/venobox.js' %}"></script>
 <script src="{% static 'js/slick.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     function sort_category(category) {
         $.get('products?category=' + category)
     }
 
+    function addProductToOrder(productId, input) {
+        const productCount = $('#' + input).val();
+        $.get('/Order/orders?product_id=' + productId + '&count=' + productCount).then(res => {
+            if (res.status === 'success') {
+                Swal.fire({
+                    title: "Success",
+                    text: "محصول با موفقیت به سبد خرید اضافه شد",
+                    icon: "success"
+                });
+            }
+            if (res.status === 'invalid_count') {
+                Swal.fire({
+                    title: "خطا",
+                    text: "تعداد محصول وارد شده نامعتبر است",
+                    icon: "error"
+                });
+            }
+            if (res.status === 'not_found') {
+                Swal.fire({
+                    title: "خطا",
+                    text: "محصول مورد نظر یافت نشد",
+                    icon: "error"
+                });
+            }
+            if (res.status === 'not_authenticated') {
+                Swal.fire({
+                    title: "خطا",
+                    text: "ابتدا باید ثبت نام کنید و وارد سایت شوید",
+                    icon: "error"
+                });
+            }
+        })
+    }
 </script>
 <!--=====================================
             JS LINK PART END

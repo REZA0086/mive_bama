@@ -60,7 +60,7 @@
     </div>
 </div>
 <!--=====================================
-                HEADER TOP PART END 
+                HEADER TOP PART END
     =======================================-->
 
 
@@ -74,25 +74,25 @@
 
                 <button class="header-user"><img src="{{ media_url }}images/user.png" alt="user"></button>
 
-                <a href="{% url 'account:login' %}"
+                <a href="{% url 'account_shop_project:login' %}"
                    class="btn btn-outline-info rounded btn-sm py-1 px-3 d-flex align-items-center"
                    title="ورود">
                     <i class="fas fa-sign-in-alt"></i>
                     <span>ورود</span>
                 </a>
-                <a href="{% url 'account:login' %}"><img src="{{ media_url }}images/logo.png" alt="logo"></a>
+                <a href="{% url 'account_shop_project:login' %}"><h1>logo</h1></a>
             </div>
 
             <section class="d-flex">
                 <a href="{% url 'blog:index' %}" class="header-logo">
-                    <img src="{{ header_index.logo.url }}" alt="logo">
+                   <h4>logo</h4>
                 </a>
                 {% if user.is_authenticated %}
                     <button class="header-user thow-header-user ms-4"><img src="{{ media_url }}images/user.png"
                                                                            alt="user">
                     </button>
                 {% else %}
-                    <a href="{% url 'account:login' %}"
+                    <a href="{% url 'account_shop_project:login' %}"
                        class="btn btn-outline-info btn-sm py-1 px-3 d-none d-lg-flex align-items-center" title="ورود">
                         <i class="fas fa-sign-in-alt"></i>
                         <span>ورود</span>
@@ -131,9 +131,9 @@
                         <li class="navbar-item dropdown">
                             <a class="navbar-link dropdown-arrow" href="#">احراز هویت</a>
                             <ul class="dropdown-position-list">
-                                <li><a href="{% url 'account:login' %}">لاگین</a></li>
-                                <li><a href="{% url 'account:register' %}">ثبت نام</a></li>
-                                <li><a href="{% url 'account:reset_password' %}">تغییر پسوورد</a></li>
+                                <li><a href="{% url 'account_shop_project:login' %}">لاگین</a></li>
+                                <li><a href="{% url 'account_shop_project:register' %}">ثبت نام</a></li>
+                                
                             </ul>
                         </li>
 
@@ -223,22 +223,24 @@
     =======================================-->
 <aside class="nav-sidebar">
     <div class="nav-header">
-        <a href="{% url 'blog:index' %}"><img src="{{ media_url }}images/logo.png" alt="logo"></a>
+        <a href="{% url 'blog:index' %}"><h1>logo</h1></a>
         <button class="nav-close"><i class="icofont-close"></i></button>
     </div>
     <div class="nav-content">
 
         <!-- This commentable code show when user login or register -->
         <div class="nav-profile">
-            <a class="nav-user" href="#"><img src="{{ media_url }}images/user.png" alt="user"></a>
-            <h4 class="nav-name"><a href="/"> {{ user.username }} </a></h4>
+            <a class="nav-user" href="{% url 'account_shop_project:profile' %}"><img src="{{ media_url }}images/user.png"
+                                                                                  alt="user"></a>
+            <h4 class="nav-name"><a href="{% url 'account_shop_project:profile' %}"> {{ user.username }} </a></h4>
         </div>
 
         <ul class="nav-list">
-            <li><a class="nav-link" href="{% url 'account:factor' %}"><i class="icofont-contacts"></i>فاکتور ها</a></li>
+            <li><a class="nav-link" href="{% url 'account_shop_project:factor' %}"><i class="icofont-contacts"></i>فاکتور
+                ها</a></li>
 
             </li>
-            <li><a class="nav-link" href="/"><i class="icofont-logout"></i>خروج</a></li>
+            <li><a class="nav-link" href="{% url 'account_shop_project:logout' %}"><i class="icofont-logout"></i>خروج</a></li>
         </ul>
 
         <div class="nav-footer">
@@ -528,12 +530,13 @@
                                 استفاده از طراحان گرافیک است...</p>
                             <div class="product-action d-flex">
                                 <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
-                                <input class="action-input" title="تعداد مورد نیاز" type="number" id="product-count"
+                                <input class="action-input" title="تعداد مورد نیاز" type="number"
+                                       id="input{{ product.id }}"
                                        value="1" min="1">
                                 <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
                             </div>
                             <button class="product-add mt-3" title="افزودن به سبد خرید"
-                                    onclick="addProductToOrder({{ product.id }})">
+                                    onclick="addProductToOrder({{ product.id }},'input{{ product.id }}')">
                                 <i class="fas fa-shopping-basket"></i>
                                 <span>افزودن</span>
                             </button>
@@ -606,7 +609,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-heading">
-                    <h2>محصولات اختصاصی گرینی</h2>
+                    <h2>محصولات اختصاصی </h2>
                 </div>
             </div>
         </div>
@@ -669,12 +672,13 @@
                                 </h6>
                                 <div class="product-action d-flex">
                                     <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
-                                    <input class="action-input" title="تعداد مورد نیاز" type="number" id="product-count"
+                                    <input class="action-input" title="تعداد مورد نیاز" type="number"
+                                           id="input{{ product.id }}"
                                            value="1" min="1">
                                     <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
                                 </div>
                                 <button class="product-add mt-3" title="افزودن به سبد خرید"
-                                        onclick="addProductToOrder({{ product.id }})">
+                                        onclick="addProductToOrder({{ product.id }},'input{{ product.id }}')">
                                     <i class="fas fa-shopping-basket"></i>
                                     <span>افزودن</span>
                                 </button>
@@ -715,12 +719,13 @@
                                 </h6>
                                 <div class="product-action d-flex">
                                     <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
-                                    <input class="action-input" title="تعداد مورد نیاز" type="number" id="product-count"
+                                    <input class="action-input" title="تعداد مورد نیاز" type="number"
+                                           id="input{{ product.id }}"
                                            value="1" min="1">
                                     <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
                                 </div>
                                 <button class="product-add mt-3" title="افزودن به سبد خرید"
-                                        onclick="addProductToOrder({{ product.id }})">
+                                        onclick="addProductToOrder({{ product.id }},'input{{ product.id }}')">
                                     <i class="fas fa-shopping-basket"></i>
                                     <span>افزودن</span>
                                 </button>
@@ -762,12 +767,13 @@
                                 </h6>
                                 <div class="product-action d-flex">
                                     <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
-                                    <input class="action-input" title="تعداد مورد نیاز" type="number" id="product-count"
+                                    <input class="action-input" title="تعداد مورد نیاز" type="number"
+                                           id="input{{ product.id }}"
                                            value="1" min="1">
                                     <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
                                 </div>
                                 <button class="product-add mt-3" title="افزودن به سبد خرید"
-                                        onclick="addProductToOrder({{ product.id }})">
+                                        onclick="addProductToOrder({{ product.id }},'input{{ product.id }}')">
                                     <i class="fas fa-shopping-basket"></i>
                                     <span>افزودن</span>
                                 </button>
@@ -806,12 +812,13 @@
                                 </h6>
                                 <div class="product-action d-flex">
                                     <button class="action-minus" title="کم کردن"><i class="icofont-minus"></i></button>
-                                    <input class="action-input" title="تعداد مورد نیاز" type="number" id="product-count"
+                                    <input class="action-input" title="تعداد مورد نیاز" type="number"
+                                           id="input{{ product.id }}"
                                            value="1" min="1">
                                     <button class="action-plus" title="زیاد کردن"><i class="icofont-plus"></i></button>
                                 </div>
                                 <button class="product-add mt-3" title="افزودن به سبد خرید"
-                                        onclick="addProductToOrder({{ product.id }})">
+                                        onclick="addProductToOrder({{ product.id }},'input{{ product.id }}')">
                                     <i class="fas fa-shopping-basket"></i>
                                     <span>افزودن</span>
                                 </button>
@@ -850,50 +857,7 @@
 <!--=====================================
                   BLOG PART START
     =======================================-->
-<section class="section blog-part">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-heading">
-                    <h2>مقالات ما را بخوانید</h2>
-                </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="blog-slider slider-arrow">
-                    {% for article in articles %}
-                        <div class="blog-card">
-                            <div class="blog-media">
-                                <a class="blog-img" href="/">
-                                    <img src="{{ article.image.url }}" alt="blog">
-                                </a>
-                            </div>
-                            <div class="blog-content">
-                                <ul class="blog-meta">
-                                    <li>
-                                        <i class="fas fa-user"></i>
-                                        <span>{{ article.author }}</span>
-                                    </li>
-
-                                </ul>
-                                <h4 class="blog-title">
-                                    <a href="/">{{ article.title }}</a>
-                                </h4>
-                                <p class="blog-desc">
-                                    {{ article.description }}
-                                </p>
-
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
 <!--=====================================
                   BLOG PART END
     =======================================-->
@@ -944,7 +908,7 @@
             <div class="col-sm-6 col-xl-3">
                 <div class="footer-widget">
                     <a class="footer-logo" href="#">
-                        <img src="{{ footer.logo.url }}" alt="logo">
+                        <h4>logo</h4>
                     </a>
                     <p class="footer-desc">{{ footer.title_logo }}</p>
                 </div>
@@ -978,7 +942,7 @@
                     <div class="footer-links">
                         <ul>
                             <li><a href="{% url 'blog:products' %}"> تمامی محصولات</a></li>
-                            <li><a href="{% url 'account:login' %}">صفحه ورود</a></li>
+                            <li><a href="{% url 'account_shop_project:login' %}">صفحه ورود</a></li>
                         </ul>
                     </div>
                 </div>
@@ -990,16 +954,11 @@
                 <div class="footer-bottom">
                     <p class="footer-copytext">
                         &copy; ساخته شده توسط
-                        <a target="_blank" href="https://eli-soft.ir">
-                            الیسافت
-                        </a>
-                        ❤️
+                        
+                            محمد رضا اخلاقی
+                        
                     </p>
-                    <p class="footer-copytext">&copy; تمامی حقوق این سایت متعلق به <a target="_blank" href="#">
-                        میوه باما
-                    </a>
-                        تعلق دارد!
-                    </p>
+                    
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import login
-from django.db.models import Sum
+from django.db.models import Sum, Avg
 from django.http import Http404, HttpRequest, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -9,7 +9,7 @@ from django.views.generic import View
 from Order.models import *
 from blog.models import *
 from blog.forms import *
-from Article.models import *
+
 from comment.models import *
 from comment.forms import *
 from rest_framework import generics
@@ -28,7 +28,7 @@ class IndexView(View):
         products_category = Product.objects.filter(category=category)
 
         category = Category.objects.all()
-        articles = Article.objects.all()
+
         try:
             user = User.objects.get(id=request.user.id)
         except User.DoesNotExist:
@@ -56,7 +56,7 @@ class IndexView(View):
         context = {
             'media_url': settings.MEDIA_URL,
             'products': products,
-            'articles': articles,
+
             'order': current_order,
             'sum': total_amount,
             'user': user,
@@ -89,17 +89,24 @@ class ProductView(View):
         categories = request.GET.getlist('category')
 
         products_category = Product.objects.all()
-
+        current_order, created = Order.objects.get_or_create(is_paid=False, user_id=request.user.id)
+        total_amount = sum(item.Final_Price() for item in current_order.orderdetail_set.all())
         if categories:
             products_category = Product.objects.filter(category__in=categories)
 
         category_name = Category.objects.all()
-
+        orders = OrderDetail.objects.filter(order=current_order)
+        count_order = 0
+        for _ in orders:
+            count_order += 1
         context = {
             'media_url': settings.MEDIA_URL,
             'categories': categories,
             'category_name': category_name,
-            'products_category': products_category
+            'products_category': products_category,
+            'order': current_order,
+            'count_order': count_order,
+            'sum': total_amount
         }
 
         return render(request, self.template_name, context)
@@ -115,11 +122,8 @@ class ProductDetailView(View):
         product = get_object_or_404(Product, pk=product_id)
         product.visited_count += 1
         product.save()
-        rate = Rating.objects.filter(pk=product_id)
-        if rate:
-            rate = rate.first()
-        else:
-            rate = None
+        ratings = Rating.objects.filter(product=product_id)
+        average_rating = ratings.aggregate(Avg('value'))['value__avg'] or 0
 
         comments = Comment.objects.filter(product=product)
         form_comment = CommentForm(initial={'user': request.user.id, 'product': product.id})
@@ -128,7 +132,7 @@ class ProductDetailView(View):
         context = {
             'product': product,
             'media_url': settings.MEDIA_URL,
-            'rate': rate,
+            'average_rating': average_rating,
             'comments': comments,
             'form_comment': form_comment,
             'response_comments': response_comments,
@@ -173,7 +177,7 @@ class Response_CommentView(View):
             return JsonResponse({
                 'success': False,
                 'message': 'شما ورود نکردید',
-                'url': 'account/login'
+                'url': 'account_shop_project/login'
             })
 
         Response_Comment.objects.create(comment=get_comment, user=request.user,

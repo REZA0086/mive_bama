@@ -39,10 +39,10 @@ schema_view = get_schema_view(
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('', include('blog.urls', namespace='blog')),
-                  path('account/', include('account.urls', namespace='account')),
+                  path('user/', include('account_shop_project.urls', namespace='account_shop_project')),
                   path('Order/', include('Order.urls', namespace='order')),
                   path('comment/', include('comment.urls', namespace='comment')),
                   path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
                   path('Panel/', include('admin.urls', namespace='panel')),
-
+                  path('accounts', include('allauth.urls'))
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

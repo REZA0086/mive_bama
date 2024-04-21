@@ -5,11 +5,11 @@ from django.http import HttpRequest, HttpResponseRedirect, JsonResponse, Http404
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.views.generic import View, DetailView
-from account.models import *
+from account_shop_project.models import *
 from blog.models import *
 from comment.models import *
 from Order.models import *
-from Article.models import Article
+from admin.forms import *
 
 
 def media_admin(request):
@@ -20,23 +20,29 @@ class PanelView(View):
     def get(self, request, *args, **kwargs):
         user = User.objects.get(id=request.user.id)
         products = Product.objects.all()
-        orders = Order.objects.all()
+        orders = Order.objects.filter(is_paid=True, user=request.user)
+
         time_sort = products.order_by('-created_time')[:10]
         products_sell = products.order_by('-order_count')[:10]
         comment = Comment.objects.all()
         rating = Rating.objects.all()
         product_count = 0
-        rate_count = 0
+        return_count = 0
         comment_count = 0
         for _ in products:
             product_count += 1
         for _ in comment:
             comment_count += 1
-        for _ in rating:
-            rate_count += 1
+        for order in orders:
+            if order.status == 'Returned':
+                return_count += 1
         sell_count = 0
         for _ in orders:
             sell_count += 1
+
+        sell_price = 0
+        for order in orders:
+            sell_price += order.calculate_total_price()
         context = {
             'media_url': settings.MEDIA_URL,
             'user': user,
@@ -45,9 +51,10 @@ class PanelView(View):
             'comment': comment,
             'rating': rating,
             'product_count': product_count,
-            'rate_count': rate_count,
+            'return_count': return_count,
             'comment_count': comment_count,
-            'sell_count': sell_count
+            'sell_count': sell_count,
+            'sell_price': sell_price
 
         }
         return render(request, 'admin/Panel.html', context)
@@ -195,80 +202,6 @@ def delete_product(request: HttpRequest, product_id):
     return JsonResponse({'message': 'با موفقیت حذف شد!'})
 
 
-def delete_article(request: HttpRequest, article_id):
-    article = Article.objects.get(id=article_id)
-    article.delete()
-
-    return redirect('panel:articles')
-
-
-class AddArticleView(View):
-    def get(self, request: HttpRequest):
-        user = User.objects.get(id=request.user.id)
-        users = User.objects.all()
-        context = {
-            'media_url': settings.MEDIA_URL,
-            'user': user,
-            'users': users
-        }
-        return render(request, 'admin/addArticle.html', context)
-
-    def post(self, request: HttpRequest):
-        article_title = request.POST.get('article_title')
-        article_description = request.POST.get('article_description')
-        article_image = request.FILES.get('article_image')
-        article_author = request.POST.get('article_author')
-
-        Article.objects.create(image=article_image, title=article_title, description=article_description,
-                               author_id=int(article_author))
-        return render(request, 'admin/addArticle.html')
-
-
-class ArticlesView(View):
-    def get(self, request: HttpRequest):
-        user = User.objects.get(id=request.user.id)
-        articles = Article.objects.all()
-
-        query = request.GET.get('q')
-        if query:
-            articles = Article.objects.filter(author__username__contains=query)
-
-        context = {
-            'media_url': settings.MEDIA_URL,
-            'user': user,
-            'articles': articles
-        }
-        return render(request, 'admin/articles.html', context)
-
-
-class ArticleDetailView(View):
-    def get(self, request: HttpRequest, article_id):
-        user = User.objects.get(id=request.user.id)
-        article = Article.objects.get(id=article_id)
-        users = User.objects.all()
-        context = {
-            'media_url': settings.MEDIA_URL,
-            'user': user,
-            'article': article,
-            'users': users
-        }
-        return render(request, 'admin/editArticle.html', context)
-
-    def post(self, request: HttpRequest, article_id):
-        article = Article.objects.get(id=article_id)
-        article_title = request.POST.get('article_title')
-        article_description = request.POST.get('article_description')
-        article_image = request.FILES.get('article_image')
-        article_author = request.POST.get('article_author')
-        article.title = article_title
-        article.description = article_description
-        article.author_id = article_author
-        if article_image != None:
-            article.image = article_image
-        article.save()
-        return redirect('panel:articles')
-
-
 class InvoiceView(View):
     def get(self, request, *args, **kwargs):
         invoice_filter = request.GET.get('filter')
@@ -300,10 +233,13 @@ def invoice_item_delete(request, invoice_id):
     order.delete()
     return JsonResponse({'message': 'با موفقیت حذف شد!'})
 
+
 def delete_user(request, user_id):
     user = User.objects.get(id=user_id)
     user.delete()
     return JsonResponse({'message': 'با موفقیت حذف شد!'})
+
+
 class InvoiceDetailView(View):
     def get(self, request):
         order = OrderDetail.objects.all()
@@ -316,12 +252,14 @@ class InvoiceDetailView(View):
 
 class EditInvoiceView(View):
     def get(self, request, invoice_id):
+        orders = Order.objects.all()
         user = request.user.id
         users = User.objects.all()
         order = Order.objects.get(id=invoice_id)
         context = {
             'media_url': settings.MEDIA_URL,
             'order': order,
+            'orders': orders,
             'users': users,
             'user': user
         }
@@ -331,10 +269,12 @@ class EditInvoiceView(View):
         # انجام عملیات مورد نیاز
         order = Order.objects.get(id=invoice_id)
         invoice_user = request.POST.get('invoice_user')
+        invoice_status = request.POST.get('invoice_status')
         invoice_is_paid = request.POST.get('invoice_is_paid')
 
         order.user_id = int(invoice_user)
         order.is_paid = invoice_is_paid.capitalize()
+        order.status = invoice_status
         order.save()
 
         return redirect('panel:invoice')
@@ -423,34 +363,37 @@ class EditInvoiceDetailView(View):
         return redirect('panel:invoice_admin_detail')
 
 
-
-class UsersAdmin(View):
-    def get(self, request, *args, **kwargs):
-        users = User.objects.all()
-        user_count = 0
-        for _ in users:
-            user_count += 1
+class FactorFilter(View):
+    def get(self, request):
+        order = Order.objects.filter(is_paid=True)
+        form = FactorForm()
         context = {
             'media_url': settings.MEDIA_URL,
-            'users':users,
-            'user_count': user_count
+            'object_list': order,
+            'form': form
         }
-        return render(request,'admin/created-users.html',context)
+        return render(request, 'admin/factor_filter.html', context)
 
-class AddUserView(View):
-    def get(self, request, *args, **kwargs):
+    def post(self, request):
+        form = FactorForm(request.POST)
+        if form.is_valid():
+            filter_start = form.cleaned_data['start_date']
+            filter_end = form.cleaned_data['end_date']
+            if filter_start and filter_end:
+                order = Order.objects.filter(payment_date__range=[filter_start, filter_end], is_paid=True)
+
+            elif filter_start:
+                order = Order.objects.filter(payment_date__gte=filter_start, is_paid=True)
+            elif filter_end:
+                order = Order.objects.filter(payment_date__lte=filter_end, is_paid=True)
+            else:
+                order = Order.objects.filter(is_paid=True)
+        else:
+            order = Order.objects.filter(is_paid=True)
+
         context = {
-            'media_url': settings.MEDIA_URL
+            'media_url': settings.MEDIA_URL,
+            'object_list': order,
+            'form': form
         }
-        return render(request,'admin/create-user.html',context)
-    def post(self, request, *args, **kwargs):
-        user_name = request.POST.get('user_name')
-        user_email = request.POST.get('user_email')
-        user_is_active = request.POST.get('user_is_active')
-        user_is_staff = request.POST.get('user_is_staff')
-        user = User.objects.create_user(
-            username = user_name,
-
-        )
-        return redirect('panel:user_admin')
-
+        return render(request, 'admin/factor_filter.html', context)

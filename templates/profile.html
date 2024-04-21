@@ -1,0 +1,435 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <!--=====================================
+                META TAG PART START
+    =======================================-->
+    <!-- REQUIRE META -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- AUTHOR META -->
+    <meta name="author" content="mironcoder">
+    <meta name="email" content="mironcoder@gmail.com">
+    <meta name="profile" content="https://themeforest.net/user/mironcoder">
+
+    <!-- TEMPLATE META -->
+    <meta name="name" content="Greeny">
+    <meta name="title" content="Greeny - eCommerce HTML Template">
+    <meta name="keywords"
+          content="organic, food, shop, ecommerce, store, html, bootstrap, template, agriculture, vegetables, webshop, farm, grocery, natural, online store">
+    <!--=====================================
+                META-TAG PART END
+    =======================================-->
+
+    <!-- WEBPAGE TITLE -->
+    <title>Greeny - Profile</title>
+
+    <!--=====================================
+                CSS LINK PART START
+    =======================================-->
+    <!-- FAVICON -->
+    <link rel="icon" href="{{ media_url }}images/favicon.png">
+
+    <!-- FONTS -->
+    <link rel="stylesheet" href="{% static 'fonts/flaticon/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/icofont/icofont.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome/fontawesome.min.css' %}">
+
+    <!-- VENDOR -->
+    <link rel="stylesheet" href="{% static 'vendor/venobox/venobox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/slickslider/slick.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/niceselect/nice-select.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css' %}">
+
+    <!-- CUSTOM -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <!--=====================================
+                CSS LINK PART END
+    =======================================-->
+</head>
+<body>
+<div class="backdrop"></div>
+<a class="backtop fas fa-arrow-up" href="#"></a>
+
+<!--=====================================
+           HEADER TOP PART START
+=======================================-->
+<div class="header-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-5">
+                <div class="header-top-welcome">
+                    <p>به فروشگاه رویایی خودتان، خوش آمدید!</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--=====================================
+            HEADER TOP PART END 
+=======================================-->
+
+
+<!--=====================================
+            HEADER PART START
+=======================================-->
+<header class="header-part">
+    <div class="container">
+        <div class="header-content">
+            <div class="header-media-group">
+                <button class="header-user"><img src="{{ media_url }}images/user.png" alt="user"></button>
+                
+                <button class="header-src"><i class="fas fa-search"></i></button>
+            </div>
+
+            
+
+        </div>
+    </div>
+</header>
+<!--=====================================
+            HEADER PART END
+=======================================-->
+
+
+<!--=====================================
+            NAVBAR PART START
+=======================================-->
+<nav class="navbar-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="navbar-content">
+                    <ul class="navbar-list">
+                        <li class="navbar-item dropdown">
+                            <a href="{% url 'blog:index' %}">خانه</a>
+
+                        </li>
+                        <li class="navbar-item dropdown">
+                            <a class="navbar-link dropdown-arrow" href="#">احراز هویت</a>
+                            <ul class="dropdown-position-list">
+                                <li><a href="{% url 'account_shop_project:login' %}">لاگین</a></li>
+                                <li><a href="{% url 'account_shop_project:register' %}">ثبت نام</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="navbar-info-group">
+                        <div class="navbar-info">
+                            <i class="icofont-ui-touch-phone"></i>
+                            <p>
+
+                                <span>{{ user.username }}</span>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!--=====================================
+            NAVBAR PART END
+=======================================-->
+
+
+<!--=====================================
+            CART SIDEBAR PART END
+=======================================-->
+
+
+<!--=====================================
+          NAV SIDEBAR PART START
+=======================================-->
+
+<!--=====================================
+          NAV SIDEBAR PART END
+=======================================-->
+
+
+<!--=====================================
+            MOBILE-MENU PART START
+=======================================-->
+
+<!--=====================================
+            MOBILE-MENU PART END
+=======================================-->
+
+
+<!--=====================================
+            BANNER PART START
+=======================================-->
+<section class="inner-section single-banner"
+         style="background: url({{ media_url }}images/single-banner.jpg) no-repeat center;">
+    <div class="container">
+        <h2>پروفایل من</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">خانه</a></li>
+            <li class="breadcrumb-item active" aria-current="page">پروفایل</li>
+        </ol>
+    </div>
+</section>
+<!--=====================================
+            BANNER PART END
+=======================================-->
+
+
+<!--=====================================
+            PROFILE PART START
+=======================================-->
+<section class="inner-section profile-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="account_mive_Bama-card">
+                    <div class="account_mive_Bama-title">
+                        
+                        
+                    </div>
+                    <div class="account_mive_Bama-content">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                {% csrf_token %}
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-label">نام</label>
+                                    <input class="form-control" type="text" value="{{ user.username }}" name="name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-label">ایمیل</label>
+                                    <input class="form-control" type="email" value="{{ user.email}}" name="email">
+                                </div>
+                            </div>
+
+                        </div>
+                        <button type="button" class="btn-primary"  style="width: 80px;height: 30px;"  onclick="edit_user()">OK</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+<!--=====================================
+            PROFILE PART END
+=======================================-->
+
+
+<!--=====================================
+            MODAL ADD FORM START
+=======================================-->
+<!-- contact add form -->
+
+
+<!-- address add form -->
+
+
+<!-- payment add form -->
+
+<!--=====================================
+            MODAL ADD FORM END
+=======================================-->
+
+
+
+
+<!--=====================================
+            MODAL EDIT FORM END
+=======================================-->
+
+
+<!--=====================================
+            NEWSLETTER PART START
+=======================================-->
+
+<!--=====================================
+            NEWSLETTER PART END
+=======================================-->
+
+
+<!--=====================================
+            INTRO PART START
+=======================================-->
+<section class="intro-part">
+    <div class="container">
+        <div class="row intro-content">
+            <div class="col-sm-6 col-lg-3">
+                <div class="intro-wrap">
+                    <div class="intro-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="intro-content">
+                        <h5>تحویل درب منزل رایگان</h5>
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="intro-wrap">
+                    <div class="intro-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="intro-content">
+                        <h5>مرجوعی کالا بی قید و شرط</h5>
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="intro-wrap">
+                    <div class="intro-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="intro-content">
+                        <h5>سیستم پشتیبانی سریع</h5>
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="intro-wrap">
+                    <div class="intro-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="intro-content">
+                        <h5>راه های پرداخت امن</h5>
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=====================================
+            INTRO PART END
+=======================================-->
+
+
+<!--=====================================
+             FOOTER PART START
+=======================================-->
+<footer class="footer-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-xl-3">
+                <div class="footer-widget">
+                    
+                    <p class="footer-desc">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
+                        طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                    <ul class="footer-social">
+                        <li><a class="icofont-facebook" href="#"></a></li>
+                        <li><a class="icofont-twitter" href="#"></a></li>
+                        <li><a class="icofont-linkedin" href="#"></a></li>
+                        <li><a class="icofont-instagram" href="#"></a></li>
+                        <li><a class="icofont-pinterest" href="#"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="footer-widget contact">
+                    <h3 class="footer-title">راه های ارتباط</h3>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="icofont-ui-email"></i>
+                            <p>
+                                <span>support@greeny.com</span>
+                                <span>carrer@greeny.com</span>
+                            </p>
+                        </li>
+                        <li>
+                            <i class="icofont-ui-touch-phone"></i>
+                            <p>
+                                <span>+120 279 532 13</span>
+                                <span>+120 279 532 14</span>
+                            </p>
+                        </li>
+                        <li>
+                            <i class="icofont-location-pin"></i>
+                            <p>ایران جان ، تهران</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="footer-widget">
+                    <h3 class="footer-title">دسترسی سریع</h3>
+                    <div class="footer-links">
+                        <ul>
+                            <li><a href="{% url 'blog:products' %}"> تمامی محصولات</a></li>
+                            <li><a href="{% url 'account_shop_project:login' %}">صفحه ورود</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="footer-bottom">
+                    <p class="footer-copytext">ساخته شده توسط محمد رضا اخلاقی
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--=====================================
+              FOOTER PART END
+=======================================-->
+
+
+<!--=====================================
+            JS LINK PART START
+=======================================-->
+<!-- VENDOR -->
+<script src="vendor/bootstrap/jquery-1.12.4.min.js"></script>
+<script src="vendor/bootstrap/popper.min.js"></script>
+<script src="vendor/bootstrap/bootstrap.min.js"></script>
+<script src="vendor/countdown/countdown.min.js"></script>
+<script src="vendor/niceselect/nice-select.min.js"></script>
+<script src="vendor/slickslider/slick.min.js"></script>
+<script src="vendor/venobox/venobox.min.js"></script>
+
+<!-- CUSTOM -->
+<script src="js/nice-select.js"></script>
+<script src="js/countdown.js"></script>
+<script src="js/accordion.js"></script>
+<script src="js/venobox.js"></script>
+<script src="js/slick.js"></script>
+<script src="js/main.js"></script>
+<script>
+    function edit_user() {
+        let name = document.querySelector("input[name='name']").value;
+        let email = document.querySelector("input[name='email']").value;
+        console.log(name)
+        console.log(email)
+        let formData = new FormData();
+        formData.append('name', name);
+        formData.append('email', email);
+        
+        fetch(`/user/profile/`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': document.querySelector("input[name='csrfmiddlewaretoken']").value
+            },
+        })
+    }
+</script>
+</body>
+</html>
+
+
+
+
+

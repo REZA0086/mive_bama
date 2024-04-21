@@ -87,58 +87,16 @@
                         </svg>
                     </i>
                     <div class="admin__info__text">
-                        
+
                         <h1>{{ user.username }}</h1>
                     </div>
                 </div>
-              
+
             </div>
 
             <nav class="actions">
                 <ul class="admin__actions">
-                    <li>
-                        <a class="admin__actions__link" href="{% url 'panel:panel' %}">
-                            <svg version="1.1" viewBox="0 0 512 512">
-                                <g>
-                                    <path
-                                            d="m498.195312 222.695312c-.011718-.011718-.023437-.023437-.035156-.035156l-208.855468-208.847656c-8.902344-8.90625-20.738282-13.8125-33.328126-13.8125-12.589843 0-24.425781 4.902344-33.332031 13.808594l-208.746093 208.742187c-.070313.070313-.140626.144531-.210938.214844-18.28125 18.386719-18.25 48.21875.089844 66.558594 8.378906 8.382812 19.445312 13.238281 31.277344 13.746093.480468.046876.964843.070313 1.453124.070313h8.324219v153.699219c0 30.414062 24.746094 55.160156 55.167969 55.160156h81.710938c8.28125 0 15-6.714844 15-15v-120.5c0-13.878906 11.289062-25.167969 25.167968-25.167969h48.195313c13.878906 0 25.167969 11.289063 25.167969 25.167969v120.5c0 8.285156 6.714843 15 15 15h81.710937c30.421875 0 55.167969-24.746094 55.167969-55.160156v-153.699219h7.71875c12.585937 0 24.421875-4.902344 33.332031-13.808594 18.359375-18.371093 18.367187-48.253906.023437-66.636719zm0 0">
-                                    </path>
-                                </g>
-                            </svg>
-                            <p>پنل ادمین</p>
-                        </a>
-                    </li>
 
-                    <li>
-                        <a class="admin__actions__link" href="{% url 'panel:products' %}">
-                            <svg version="1.1" viewBox="0 0 24 24">
-                                <g>
-                                    <g>
-                                        <path d="m4 3a1 1 0 0 0 -1 1v7h8v-8z"></path>
-                                        <path d="m20 3h-7v8h8v-7a1 1 0 0 0 -1-1zm-1 6h-4v-4h4z"></path>
-                                        <path d="m9 13h-6v7a1 1 0 0 0 1 1h7v-8zm0 6h-4v-4h4z"></path>
-                                        <path d="m13 13v8h7a1 1 0 0 0 1-1v-7z"></path>
-                                    </g>
-                                </g>
-                            </svg>
-                            <p>محصولات</p>
-                        </a>
-                    </li>
-                     <li>
-                        <a class="admin__actions__link" href="{% url 'panel:articles' %}">
-                            <svg version="1.1" viewBox="0 0 24 24">
-                                <g>
-                                    <g>
-                                        <path d="m4 3a1 1 0 0 0 -1 1v7h8v-8z"></path>
-                                        <path d="m20 3h-7v8h8v-7a1 1 0 0 0 -1-1zm-1 6h-4v-4h4z"></path>
-                                        <path d="m9 13h-6v7a1 1 0 0 0 1 1h7v-8zm0 6h-4v-4h4z"></path>
-                                        <path d="m13 13v8h7a1 1 0 0 0 1-1v-7z"></path>
-                                    </g>
-                                </g>
-                            </svg>
-                            <p>مقالات</p>
-                        </a>
-                    </li>
                     <li data-dropdown-panel="true">
                         <a class="admin__actions__link" href="javascript:void(0)">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 474.565 474.565">
@@ -168,23 +126,38 @@
                                     </g>
                                 </g>
                             </svg>
-                            <p>اقدامات ادمین اصلی</p>
+                            <p>پنل ادمین</p>
                             <i class="fa fa-angle-down"></i>
                         </a>
                     </li>
                     {% if user.is_superuser %}
-                    	<ul class="admin__pages__action" data-dropdown-panel-hidden="true">
-                        <li><a href="{% url 'panel:product_add' %}">افزودن محصول</a></li>
-                        <li><a href="{% url 'panel:add_article' %}">افزودن مقاله</a></li>
-                        
-                        <li><a href="{% url 'panel:invoice' %}">دسترسی به سبد های خرید</a></li>
-                        <li><a href="{% url 'panel:users_admin' %}">دسترسی به کاربران</a></li>
-                        
-                    </ul>
-                    {% endif %} 
-                    
+                        <ul class="admin__pages__action" data-dropdown-panel-hidden="true">
+                            <li><a href="{% url 'panel:product_add' %}">افزودن محصول</a></li>
 
-                    
+
+                            <li><a href="{% url 'panel:invoice' %}">دسترسی به سبد های خرید</a></li>
+                            {#                        <li><a href="{% url 'panel:users_admin' %}">دسترسی به کاربران</a></li>#}
+
+                        </ul>
+                    {% endif %}
+
+                    <li>
+                        <a class="admin__actions__link" href="{% url 'panel:products' %}">
+                            <svg version="1.1" viewBox="0 0 24 24">
+                                <g>
+                                    <g>
+                                        <path d="m4 3a1 1 0 0 0 -1 1v7h8v-8z"></path>
+                                        <path d="m20 3h-7v8h8v-7a1 1 0 0 0 -1-1zm-1 6h-4v-4h4z"></path>
+                                        <path d="m9 13h-6v7a1 1 0 0 0 1 1h7v-8zm0 6h-4v-4h4z"></path>
+                                        <path d="m13 13v8h7a1 1 0 0 0 1-1v-7z"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                            <p>محصولات</p>
+                        </a>
+                    </li>
+
+
                 </ul>
             </nav>
             <span class="panel__copy__right__text">&copy; پنل ادمین میوه باما</span>
@@ -273,7 +246,7 @@
             </div>
 
             <div class="website-analytics-cr">
-                <p>تعداد محصولات</p>
+                <p>مرجوعی</p>
                 <div class="website-analytics-count">
                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 32 32">
                         <g>
@@ -282,12 +255,12 @@
                             </path>
                         </g>
                     </svg>
-                    <p id="added-items">{{ product_count }}</p>
+                    <p id="added-items">{{ return_count }}</p>
                 </div>
             </div>
 
             <div class="website-analytics-cr">
-                <p>تعداد نظرات </p>
+                <p>جمع فروش</p>
                 <div class="website-analytics-count">
                     <svg version="1.1" viewBox="0 0 512 512">
                         <g>
@@ -299,23 +272,11 @@
                             </path>
                         </g>
                     </svg>
-                    <p id="new-comments">{{ comment_count }}</p>
+                    <p id="new-comments">{{ sell_price }}</p>
                 </div>
             </div>
 
-            <div class="website-analytics-cr">
-                <p> تعداد امتیازات </p>
-                <div class="website-analytics-count">
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 512 512">
-                        <g>
-                            <path
-                                    d="m376 43.839c-60.645 0-99.609 39.683-120 75.337-20.391-35.654-59.355-75.337-120-75.337-76.963 0-136 58.945-136 137.124 0 84.771 73.964 142.5 184.413 229.907 54.082 42.761 57.557 46.011 71.587 57.29 11.45-9.205 17.787-14.751 71.587-57.29 110.449-87.407 184.413-145.136 184.413-229.907 0-78.178-59.037-137.124-136-137.124z">
-                            </path>
-                        </g>
-                    </svg>
-                    <p id="new-scores">{{ rate_count }}</p>
-                </div>
-            </div>
+
         </section>
         <!-- website analytics counters end-->
 
@@ -346,9 +307,7 @@
                             <i class="fas fa-sync-alt"></i>
                         </a>
 
-                        <a href="post-catalogs.html" class="show-all-btn">
-                            <p>نمایش همه</p>
-                        </a>
+                        
                     </div>
                 </div>
                 <div class="analytics-table">
@@ -379,189 +338,20 @@
                                 <li>{{ product.price }}</li>
                             {% endfor %}
                         </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- end -->
-            <!-- start -->
-            <div class="analytics-container">
-                <div class="analytics-title">
-                    <div class="analytics-right-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 512 512">
-                            <g>
-                                <g xmlns="http://www.w3.org/2000/svg">
-                                    <g>
-                                        <path d="m347 356.272v41.456l41.455-20.728z">
-                                        </path>
-                                        <path d="m242 242v270h270v-270zm75 204.272v-138.544l138.545 69.272z"></path>
-                                    </g>
-                                    <g>
-                                        <path d="m90 8.789-81.211 81.211h81.211z">
-                                        </path>
-                                        <path
-                                                d="m120 0v120h-120v332h212v-90h-152v-30h152v-30h-152v-30h152v-30h-152v-30h272v-212zm152 182h-212v-30h212z">
-                                        </path>
-                                    </g>
-                                </g>
-                            </g>
-                        </svg>
-                        <h2>جدید ترین پست ها</h2>
-                    </div>
-
-                    <div class="analytics-left-title">
-                        <a class="sycs-icon" id="sycs-last-posts" title="بارگزاری مجدد">
-                            <i class="fas fa-sync-alt"></i>
-                        </a>
-
-                        <a href="post-catalogs.html" class="show-all-btn">
-                            <p>نمایش همه</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="analytics-table">
-                    <div class="analytics-tr">
                         <ul class="analytics-table-container-tr">
-                            <h3 class="analytics-table-th">شناسه</h3>
-                            {% for product in time_sort %}
-                                <li>{{ product.id }}</li>
-                            {% endfor %}
-                        </ul>
-                        <ul class="analytics-table-container-tr">
-                            <h3 class="analytics-table-th">نام محصول</h3>
-                            {% for product in time_sort %}
-                                <li>{{ product.title }}</li>
-                            {% endfor %}
-                        </ul>
-                        <ul class="analytics-table-container-tr">
-                            <h3 class="analytics-table-th">دسته بندی</h3>
-                            {% for product in time_sort %}
-                                <li>{{ product.category }}</li>
-                            {% endfor %}
-                        </ul>
-                        <ul class="analytics-table-container-tr">
-                            <h3 class="analytics-table-th">قیمت</h3>
-                            {% for product in time_sort %}
-                                <li>{{ product.price }}</li>
+                            <h3 class="analytics-table-th">تعداد فروش</h3>
+                            {% for product in products_sell %}
+                                <li>{{ product.order_count }}</li>
                             {% endfor %}
                         </ul>
                     </div>
                 </div>
             </div>
-            <!-- end -->
-            <!-- start -->
-            <div class="analytics-container">
-                <div class="analytics-title">
-                    <div class="analytics-right-title">
-                        <svg version="1.1" viewBox="0 0 512 512">
-                            <g>
-                                <path
-                                        d="m303.392 61.393c-31.795-19.61-69.472-30.393-108.392-30.393-105.946 0-195 78.933-195 180 0 35.435 11.008 69.404 31.918 98.741l-29.21 91.706c-3.086 9.687 4.17 19.553 14.295 19.553 2.315 0 4.645-.535 6.795-1.629l88.832-45.167c3.597 1.549 7.239 2.99 10.918 4.328-20.567-32.102-31.548-68.952-31.548-107.532 0-114.897 96.678-203.228 211.392-209.607z">
-                                </path>
-                                <path
-                                        d="m480.082 369.741c20.91-29.337 31.918-63.306 31.918-98.741 0-101.104-89.092-180-195-180-105.946 0-195 78.933-195 180 0 101.104 89.092 180 195 180 28.417 0 56.732-5.791 82.365-16.798l88.837 45.169c5.391 2.741 11.903 1.976 16.512-1.941s6.415-10.219 4.579-15.982zm-224.082-83.741c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15zm60 0c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15zm60 0c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15z">
-                                </path>
-                            </g>
-                        </svg>
-                        <h2>آخرین نظرات</h2>
-                    </div>
 
-                    <div class="analytics-left-title">
-                        <a class="sycs-icon" id="sycs-last-comments" title="بارگزاری مجدد">
-                            <i class="fas fa-sync-alt"></i>
-                        </a>
-
-                        <a href="panel-comments.html" class="show-all-btn">
-                            <p>نمایش همه</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="analytics-table">
-                    <div class="analytics-tr">
-                        <ul class="analytics-table-container-tr">
-                            <h3 class="analytics-table-th">نظر به محصول</h3>
-                            {% for comment in comment %}
-                                <li>{{ comment.product }}</li>
-                            {% endfor %}
-                        </ul>
-                        <ul class="analytics-table-container-tr">
-                            <h3 class="analytics-table-th">نام</h3>
-                            {% for comment in comment %}
-                                <li>{{ comment.user }}</li>
-                            {% endfor %}
-                        </ul>
-                        <ul class="analytics-table-container-tr">
-                            <h3 class="analytics-table-th">وضیعت کامنت</h3>
-
-                            {% for comment in comment %}
-                                {% if comment.is_active %}
-                                    <li class="panel-green-class">{{ comment.is_active }}</li>
-                                {% else %}
-                                    <li class="panel-red-class">{{ comment.is_active }}</li>
-                                {% endif %}
-
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- end -->
-            <!-- start -->
-            <div class="analytics-container">
-                <div class="analytics-title">
-                    <div class="analytics-right-title">
-                        <svg version="1.1" viewBox="0 0 24 24">
-                            <g>
-                                <g>
-                                    <path
-                                            d="m12 2a10 10 0 1 0 10 10 10 10 0 0 0 -10-10zm5.68 9.54-2.13 2.18.5 3.1a1 1 0 0 1 -.41 1 1 1 0 0 1 -1.06.05l-2.58-1.45-2.6 1.43a.94.94 0 0 1 -.48.13 1 1 0 0 1 -.58-.18 1 1 0 0 1 -.41-1l.51-3.1-2.14-2.16a1 1 0 0 1 .57-1.69l2.91-.45 1.31-2.78a1 1 0 0 1 .91-.62 1 1 0 0 1 .91.57l1.3 2.83 2.91.45a1 1 0 0 1 .8.67 1 1 0 0 1 -.24 1.02z">
-                                    </path>
-                                </g>
-                            </g>
-                        </svg>
-                        <h2>آخرین امتیازات</h2>
-                    </div>
-                    <div class="analytics-left-title">
-                        <a href="scores.html" class="show-all-btn">
-                            <p>نمایش همه</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="analytics-table">
-                    <div class="analytics-tr">
-                        <ul class="analytics-table-container-tr">
-                            <h3 class="analytics-table-th">امتیازات پست</h3>
-                            {% for rate in rating %}
-                                <li>{{ rate.product }}</li>
-                            {% endfor %}
-
-                        </ul>
-                        <ul class="analytics-table-container-tr">
-                            <h3 class="analytics-table-th">کاربران امتیاز دهنده</h3>
-                            {% for rate in rating %}
-                                <li>{{ rate.user }}</li>
-                            {% endfor %}
-                        </ul>
-                        <ul class="analytics-table-container-tr">
-                            <h3 class="analytics-table-th">مقدار امتیاز ها</h3>
-
-                            {% for rate in rating %}
-                                {% if rate.value > 2 %}
-                                    <li class="panel-green-class">{{ rate.value }}</li>
-                                {% else %}
-                                    <li class="panel-red-class">{{ rate.value }}</li>
-                                {% endif %}
-
-                            {% endfor %}
-                        </ul>
-
-                    </div>
-                </div>
-            </div>
-            <!-- end -->
         </section>
         <!-- website analytics tables end-->
     </section>
-    
+
     <!-- menu panel container end -->
 </main>
 <!-- dashboard page end -->

@@ -1,4 +1,4 @@
-from account.models import *
+from account_shop_project.models import *
 from django_jalali.db import models as jmodels
 import jdatetime
 

@@ -163,21 +163,7 @@
                             <p>محصولات</p>
                         </a>
                     </li>
-                    <li>
-                        <a class="admin__actions__link" href="{% url 'panel:articles' %}">
-                            <svg version="1.1" viewBox="0 0 24 24">
-                                <g>
-                                    <g>
-                                        <path d="m4 3a1 1 0 0 0 -1 1v7h8v-8z"></path>
-                                        <path d="m20 3h-7v8h8v-7a1 1 0 0 0 -1-1zm-1 6h-4v-4h4z"></path>
-                                        <path d="m9 13h-6v7a1 1 0 0 0 1 1h7v-8zm0 6h-4v-4h4z"></path>
-                                        <path d="m13 13v8h7a1 1 0 0 0 1-1v-7z"></path>
-                                    </g>
-                                </g>
-                            </svg>
-                            <p>مقالات</p>
-                        </a>
-                    </li>
+                    
                     <li>
                         <a class="admin__actions__link" href="{% url 'panel:invoice' %}">
                             <svg version="1.1" viewBox="0 0 24 24">
@@ -244,7 +230,7 @@
                     {% if user.is_superuser %}
                         <ul class="admin__pages__action" data-dropdown-panel-hidden="true">
                             <li><a href="{% url 'panel:product_add' %}">افزودن محصول</a></li>
-                            <li><a href="{% url 'panel:add_article' %}">افزودن مقاله</a></li>
+                            
                             <li><a href="create-user.html">دسترسی به کاربران</a></li>
 
                         </ul>
